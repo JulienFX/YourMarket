@@ -3,7 +3,7 @@
 <head>
   <style>
     .header {
-      background-color: blue;
+      background-color: gray;
       padding: 1%;
       display: flex;
       align-items: center;
@@ -20,7 +20,7 @@
       <button type="submit">Search</button>
     </div>
     <div>
-      <button class="cart-button">Your Cart</button>
+      <a href="login.php">Your cart</a>
       <button class="login-button">Login</button>
     </div>
   </header>

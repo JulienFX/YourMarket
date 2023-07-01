@@ -12,8 +12,7 @@ nav{
     flex-grow: 1;
 }
 .navbar {
-    /* REVOIR TP sur le site du café  */
-    background-color: blue;
+    background-color: gray;
     height: 100%;
     float: left;
 }
