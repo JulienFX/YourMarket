@@ -9,6 +9,23 @@
     </script>
 </head>
 <body>
+    <?php
+    require_once "connexionBdd.php";
+
+    // Vérifier si le formulaire a été soumis
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        // Récupérer les valeurs du formulaire
+        $firstName = $_POST["firstName"];
+        $name = $_POST["name"];
+        $username = $_POST["newUsername"];
+        $email = $_POST["email"];
+        $phone = $_POST["phone"];
+        $password = $_POST["newPassword"];
+
+        // Appeler la fonction pour inscrire l'utilisateur
+        newUser($firstName, $name, $username, $email, $phone, $password);
+    }
+    ?>
     <h2>Connexion</h2>
     <form>
         <label for="username">Username:</label>
@@ -26,7 +43,7 @@
 
     <div id="registrationForm" style="display: none;">
         <h2>Inscription</h2>
-        <form>
+        <form method="POST">
             <label for="firstName">Firt name:</label>
             <input type="text" id="firstName" name="firstName" required><br>
 
@@ -48,5 +65,7 @@
             <button type="submit">Register</button>
         </form>
     </div>
+    
+
 </body>
 </html>
