@@ -19,7 +19,9 @@
       </div>
     </div>
   <footer>
-    <?php include('Constant/footer.php'); ?>
+    <?php 
+    include('Constant/footer.php'); 
+    ?>
   </footer>
 </body>
 </html>
