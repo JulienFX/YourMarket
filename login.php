@@ -15,15 +15,22 @@
     // Vérifier si le formulaire a été soumis
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Récupérer les valeurs du formulaire
-        $firstName = $_POST["firstName"];
-        $name = $_POST["name"];
-        $username = $_POST["newUsername"];
-        $email = $_POST["email"];
-        $phone = $_POST["phone"];
-        $password = $_POST["newPassword"];
+        if(isset($_POST["newUsername"])){ // enregistrement
+            $firstName = $_POST["firstName"];
+            $name = $_POST["name"];
+            $username = $_POST["newUsername"];
+            $email = $_POST["email"];
+            $phone = $_POST["phone"];
+            $password = $_POST["newPassword"];
 
-        // Appeler la fonction pour inscrire l'utilisateur
-        newUser($firstName, $name, $username, $email, $phone, $password);
+            // Appeler la fonction pour inscrire l'utilisateur
+            newUser($firstName, $name, $username, $email, $phone, $password);
+        }else{ // login
+            $username = $_POST["username"];
+            $password = $_POST["password"];
+            login($username,$password);
+        }
+        
     }
     ?>
     <h2>Connexion</h2>

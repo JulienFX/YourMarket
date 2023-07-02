@@ -14,7 +14,7 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Préparer la requête d'insertion des données d'inscription
-        $query = "INSERT INTO users (firstName, name, username, email, phone, password)
+        $query = "INSERT INTO users (firstName, name, username, email, phone, passwd)
                   VALUES (:firstName, :name, :username, :email, :phone, :password)";
         $stmt = $connexion->prepare($query);
 
@@ -34,6 +34,36 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
         echo "Erreur d'inscription: " . $e->getMessage();
+    }
+}
+
+function login($username, $password){
+    $servername = "localhost"; // Adresse du serveur MySQL (généralement localhost)
+    $usernameServer = "root"; // Nom d'utilisateur MySQL
+    $passwordServer = ""; // Mot de passe MySQL
+    $dbname = "yourmarket"; // Nom de la base de données
+
+    try {
+        // Créer une connexion PDO à la base de données
+        $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
+
+        // Configurer le mode d'erreur pour afficher les erreurs de requête
+        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Préparer la requête d'insertion des données d'inscription
+        $query = "SELECT username, passwd FROM users where username=? and passwd=?";
+        $stmt = $connexion->prepare($query);
+
+        $array = array($username,$password);
+
+        // Exécution de la requête
+        $stmt->execute($array);
+        $_SESSION['username'] = $username;
+        // Afficher un message de succès
+        header('Location: index.php');
+    } catch(PDOException $e) {
+        // En cas d'erreur, afficher le message d'erreur
+        echo "Faux MDP " . $e->getMessage();
     }
 }
 
