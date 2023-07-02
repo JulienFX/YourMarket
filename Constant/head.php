@@ -22,10 +22,8 @@
     <div>
       <a href="">Your cart</a>
       <?php 
-      include 'connexionBdd.php';
       if(isset($_SESSION['username'])){
-        echo '<a href="">Manage account</a>';
-        echo $_SESSION['username'];
+        echo '<a href="disconnect.php">Manage account</a>';
       }else{
         echo '<a href="login.php">Login</a>';
       } ?>

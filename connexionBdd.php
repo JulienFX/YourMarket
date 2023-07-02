@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 function newUser($firstName, $name, $username, $email, $phone, $password) {
     $servername = "localhost"; // Adresse du serveur MySQL (généralement localhost)
     $usernameServer = "root"; // Nom d'utilisateur MySQL
@@ -9,7 +9,7 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
     try {
         // Créer une connexion PDO à la base de données
         $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
-        
+
         // Configurer le mode d'erreur pour afficher les erreurs de requête
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
