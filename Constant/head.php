@@ -10,6 +10,26 @@
       justify-content: space-between;
       color: white;
     }
+    .profile-button {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 120px;
+        background-color: #f9f9f9;
+        padding: 8px;
+        border: 1px solid #ccc;
+        z-index: 1;
+    }
+    
+    .profile-button:hover .profile-dropdown {
+        display: block;
+    }
   </style>
 </head>
   <header class="header">
@@ -23,7 +43,16 @@
       <a href="">Your cart</a>
       <?php 
       if(isset($_SESSION['username'])){
-        echo '<a href="disconnect.php">Manage account</a>';
+        ?>
+        <div class="profile-button">
+        <img src="Photos/pdp.png" height="50px" alt="Photo de profil">
+        <div class="profile-dropdown">
+            <a href="#">Profil</a>
+            <br>
+            <a href="disconnect.php">Disconnect</a>
+        </div>
+      </div>
+      <?php
       }else{
         echo '<a href="login.php">Login</a>';
       } ?>
