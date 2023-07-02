@@ -47,7 +47,7 @@
         <div class="profile-button">
         <img src="Photos/pdp.png" height="50px" alt="Photo de profil">
         <div class="profile-dropdown">
-            <a href="#">Profil</a>
+            <a href="profil.php">Profil</a>
             <br>
             <a href="disconnect.php">Disconnect</a>
         </div>

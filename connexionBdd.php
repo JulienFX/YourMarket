@@ -29,7 +29,6 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
         // execute query
         $stmt->execute();
         $_SESSION['username'] = $username;
-
         // Redirection 
         header('Location: index.php');
     } catch(PDOException $e) {
