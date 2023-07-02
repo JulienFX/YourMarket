@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 01 juil. 2023 à 16:31
+-- Généré le : dim. 02 juil. 2023 à 13:57
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -234,16 +234,24 @@ CREATE TABLE IF NOT EXISTS `shoppingcart` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `username` int NOT NULL,
+  `username` varchar(100) NOT NULL,
   `firstName` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(15) NOT NULL,
-  `password` varchar(100) NOT NULL,
+  `passwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `roles` int NOT NULL,
   `activated` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`username`, `firstName`, `name`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
+('cena', 'john', 'cena', 'jc@gmail.com', '04', 'jc', 0, 0),
+('j', 'jack', 'chong', 'j@gmail.com', '00', '01', 0, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
