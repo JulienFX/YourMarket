@@ -1,24 +1,24 @@
 <?php
 session_start();
 function newUser($firstName, $name, $username, $email, $phone, $password) {
-    $servername = "localhost"; // Adresse du serveur MySQL (généralement localhost)
-    $usernameServer = "root"; // Nom d'utilisateur MySQL
-    $passwordServer = ""; // Mot de passe MySQL
-    $dbname = "yourmarket"; // Nom de la base de données
+    $servername = "localhost"; // adress server mysql
+    $usernameServer = "root"; // username mysql
+    $passwordServer = ""; // passsword mysql
+    $dbname = "yourmarket"; // db name
 
     try {
-        // Créer une connexion PDO à la base de données
+        // creation of a PDO 
         $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
 
-        // Configurer le mode d'erreur pour afficher les erreurs de requête
+        // Configuration error mode 
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Préparer la requête d'insertion des données d'inscription
+        // prepare query : security
         $query = "INSERT INTO users (firstName, name, username, email, phone, passwd)
                   VALUES (:firstName, :name, :username, :email, :phone, :password)";
         $stmt = $connexion->prepare($query);
 
-        // Liage des valeurs des paramètres
+        // link values and params
         $stmt->bindParam(':firstName', $firstName);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':username', $username);
@@ -26,11 +26,12 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':password', $password);
 
-        // Exécution de la requête
+        // execute query
         $stmt->execute();
         $_SESSION['username'] = $username;
-        // Afficher un message de succès
-        echo $_SESSION['username'];
+
+        // Redirection 
+        header('Location: index.php');
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
         echo "Erreur d'inscription: " . $e->getMessage();
@@ -38,28 +39,29 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
 }
 
 function login($username, $password){
-    $servername = "localhost"; // Adresse du serveur MySQL (généralement localhost)
-    $usernameServer = "root"; // Nom d'utilisateur MySQL
-    $passwordServer = ""; // Mot de passe MySQL
-    $dbname = "yourmarket"; // Nom de la base de données
+    $servername = "localhost"; // adress server mysql
+    $usernameServer = "root"; // username mysql
+    $passwordServer = ""; // passsword mysql
+    $dbname = "yourmarket"; // db name
 
     try {
-        // Créer une connexion PDO à la base de données
+        // creation of a pdo connexion with DB
         $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
 
-        // Configurer le mode d'erreur pour afficher les erreurs de requête
+        // configuration error mode 
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Préparer la requête d'insertion des données d'inscription
+        // prepare query : security 
         $query = "SELECT username, passwd FROM users where username=? and passwd=?";
         $stmt = $connexion->prepare($query);
 
+        // put inside an array value 
         $array = array($username,$password);
 
-        // Exécution de la requête
+        // execute query
         $stmt->execute($array);
         $_SESSION['username'] = $username;
-        // Afficher un message de succès
+        // Redirection 
         header('Location: index.php');
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
