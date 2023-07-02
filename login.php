@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page de Login</title>
+    <title>Login page</title>
     <script>
         function openRegistrationForm() {
             document.getElementById("registrationForm").style.display = "block";
@@ -27,7 +27,7 @@
     }
     ?>
     <h2>Connexion</h2>
-    <form>
+    <form method="POST">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br>
 
@@ -65,7 +65,8 @@
             <button type="submit">Register</button>
         </form>
     </div>
-    
+    <br>
+    <a href="index.php">return home</a>
 
 </body>
 </html>

@@ -20,8 +20,16 @@
       <button type="submit">Search</button>
     </div>
     <div>
-      <a href="login.php">Your cart</a>
-      <button class="login-button">Login</button>
+      <a href="">Your cart</a>
+      <?php 
+      include 'connexionBdd.php';
+      if(isset($_SESSION['username'])){
+        echo '<a href="">Manage account</a>';
+        echo $_SESSION['username'];
+      }else{
+        echo '<a href="login.php">Login</a>';
+      } ?>
+      
     </div>
   </header>
 
