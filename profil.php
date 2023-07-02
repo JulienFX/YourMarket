@@ -43,9 +43,9 @@ button:hover {
 <head>
 <?php
 $servername = "localhost"; // adress server mysql
-    $usernameServer = "root"; // username mysql
-    $passwordServer = ""; // passsword mysql
-    $dbname = "yourmarket"; // db name
+$usernameServer = "root"; // username mysql
+$passwordServer = ""; // passsword mysql
+$dbname = "yourmarket"; // db name
 
     // Create a new connection
 $conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
@@ -75,9 +75,45 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+ <?php
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve form data
+    $firstname = $_POST['firstName'];
+    $name = $_POST['lastName'];
+    $email = $_POST['email'];
+    $username =$_POST['username'];
+    $phoneNumber = $_POST['phone'];
+    $passwd = $_POST['password'];
+
+    $servername = "localhost"; // adress server mysql
+    $usernameServer = "root"; // username mysql
+    $passwordServer = ""; // passsword mysql
+    $dbname = "yourmarket"; // db name
+
+    // Create a new connection
+    $conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Construct update query
+    $sql = "UPDATE users SET firstname='$firstname', email = '$email', username ='$username', phone ='$phoneNumber' , passwd = '$passwd' WHERE username='$user'";
+
+    // Execute update query
+    if ($conn->query($sql) === TRUE) {
+     // echo "Record updated successfully";
+    } else {
+      echo "Error updating record: " . $conn->error;
+    }
+    $_SESSION['username'] = $username;
+    // Close the database connection
+    $conn->close();
+    header('Location: profil.php');
+  }
+ ?>
   <div class="container">
     <h1>Profile Management</h1>
-    <form action="">
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
       <label for="firstName">First Name:</label>
       <input type="text" id="firstName" name="firstName"  value="<?php echo $firstName; ?>"required>
 
