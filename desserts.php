@@ -69,7 +69,6 @@
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src="Photos/xbox.png" alt="">';
-                        echo '<h2>' . $row["name"] . '</h2>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<button>Add to Cart</button><br><br>';
