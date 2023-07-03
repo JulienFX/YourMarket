@@ -22,9 +22,9 @@
             $email = $_POST["email"];
             $phone = $_POST["phone"];
             $password = $_POST["newPassword"];
-
+            $role = $_POST["role"];
             // Appeler la fonction pour inscrire l'utilisateur
-            newUser($firstName, $name, $username, $email, $phone, $password);
+            newUser($firstName, $name, $username, $email, $phone, $password, $role);
         }else{ // login
             $username = $_POST["username"];
             $password = $_POST["password"];
@@ -69,6 +69,12 @@
             <label for="newPassword">Password:</label>
             <input type="password" id="newPassword" name="newPassword" required><br>
 
+            <label for="need">I wish to :</label>
+            <select name="role">
+                <option value="1" id="buySell">Buy and sell</option>
+                <option value="2" id="buy">Only buy</option>
+            </select>
+            <br> <br>
             <button type="submit">Register</button>
         </form>
     </div>

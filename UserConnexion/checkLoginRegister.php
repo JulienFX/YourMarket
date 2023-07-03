@@ -2,27 +2,27 @@
 session_start();
 require_once('../connexionDB.php');
 
-function newUser($firstName, $name, $username, $email, $phone, $password) {
+function newUser($firstName, $name, $username, $email, $phone, $password, $role) {
     global $conn; // access to $conn in connexionDB.php
     try {
         // prepare query : security
-        $query = "INSERT INTO users (firstName, familyName, username, email, phone, passwd)
-          VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO users (firstName, familyName, username, email, phone, passwd, roles)
+          VALUES (?, ?, ?, ?, ?, ?, ?)";
         $statement = mysqli_prepare($conn, $query);
 
         if ($statement) {
-            // sssssss => string string ... type of content 
-            mysqli_stmt_bind_param($statement, "ssssss",$firstName, $name, $username, $email, $phone, $password);
+            // sssssssi => s : string, i : integer ... type of content 
+            mysqli_stmt_bind_param($statement, "ssssssi",$firstName, $name, $username, $email, $phone, $password, $role);
         
             if (mysqli_stmt_execute($statement)) {
                 $_SESSION['username'] = $username;
                 header('Location: ../index.php');
             } else {
-                echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
+                echo "Erreur lors de l'exécution de la requête : " . mysqli_error($conn);
             }
             mysqli_stmt_close($statement);
         } else {
-            echo "Erreur lors de la préparation de la requête : " . mysqli_error($connexion);
+            echo "Erreur lors de la préparation de la requête : " . mysqli_error($conn);
         }
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
