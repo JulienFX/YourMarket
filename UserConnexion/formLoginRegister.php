@@ -73,7 +73,7 @@
         </form>
     </div>
     <br>
-    <a href="index.php">return home</a>
+    <a href="../index.php">return home</a>
 
 </body>
 </html>

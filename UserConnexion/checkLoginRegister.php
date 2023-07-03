@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('connexionDB.php');
+require_once('../connexionDB.php');
 
 function newUser($firstName, $name, $username, $email, $phone, $password) {
     global $conn; // access to $conn in connexionDB.php
@@ -16,7 +16,7 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
         
             if (mysqli_stmt_execute($statement)) {
                 $_SESSION['username'] = $username;
-                header('Location: index.php');
+                header('Location: ../index.php');
             } else {
                 echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
             }
@@ -41,7 +41,7 @@ function login($username, $password){
             $row_count = mysqli_num_rows($result);
         
             if ($row_count > 0) {
-                header('Location: index.php');
+                header('Location: ../index.php');
             } else {
                 echo "Il n'y a pas de résultat.";
             }

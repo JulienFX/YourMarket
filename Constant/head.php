@@ -54,7 +54,7 @@
       </div>
       <?php
       }else{
-        echo '<a href="formLoginRegister.php">Login</a>';
+        echo '<a href="../UserConnexion/formLoginRegister.php">Login</a>';
       } ?>
       
     </div>
