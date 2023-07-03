@@ -10,7 +10,7 @@
 </head>
 <body>
     <?php
-    require_once "connexionBdd.php";
+    require_once "checkLoginRegister.php";
 
     // Vérifier si le formulaire a été soumis
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
