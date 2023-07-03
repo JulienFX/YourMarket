@@ -22,6 +22,12 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
+        .item img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
@@ -59,6 +65,7 @@
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="column">';
                         echo '<div class="item">';
+                        echo '<img src="Photos/xbox.png" alt="">';
                         echo '<h2>' . $row["name"] . '</h2>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
