@@ -1,36 +1,29 @@
 <?php
 session_start();
+require_once('connexionDB.php');
+
 function newUser($firstName, $name, $username, $email, $phone, $password) {
-    $servername = "localhost"; // adress server mysql
-    $usernameServer = "root"; // username mysql
-    $passwordServer = ""; // passsword mysql
-    $dbname = "yourmarket"; // db name
-
+    global $conn; // access to $conn in connexionDB.php
     try {
-        // creation of a PDO 
-        $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
-
-        // Configuration error mode 
-        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // prepare query : security
-        $query = "INSERT INTO users (firstName, name, username, email, phone, passwd)
-                  VALUES (:firstName, :name, :username, :email, :phone, :password)";
-        $stmt = $connexion->prepare($query);
+        $query = "INSERT INTO users (firstName, familyName, username, email, phone, passwd)
+          VALUES (?, ?, ?, ?, ?, ?)";
+        $statement = mysqli_prepare($conn, $query);
 
-        // link values and params
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':password', $password);
-
-        // execute query
-        $stmt->execute();
-        $_SESSION['username'] = $username;
-        // Redirection 
-        header('Location: index.php');
+        if ($statement) {
+            // sssssss => string string ... type of content 
+            mysqli_stmt_bind_param($statement, "ssssss",$firstName, $name, $username, $email, $phone, $password);
+        
+            if (mysqli_stmt_execute($statement)) {
+                $_SESSION['username'] = $username;
+                header('Location: index.php');
+            } else {
+                echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
+            }
+            mysqli_stmt_close($statement);
+        } else {
+            echo "Erreur lors de la préparation de la requête : " . mysqli_error($connexion);
+        }
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
         echo "Erreur d'inscription: " . $e->getMessage();
@@ -38,38 +31,24 @@ function newUser($firstName, $name, $username, $email, $phone, $password) {
 }
 
 function login($username, $password){
-    $servername = "localhost"; // adress server mysql
-    $usernameServer = "root"; // username mysql
-    $passwordServer = ""; // passsword mysql
-    $dbname = "yourmarket"; // db name
-
+    global $conn;
     try {
-        // creation of a pdo connexion with DB
-        $connexion = new PDO("mysql:host=$servername;dbname=$dbname", $usernameServer, $passwordServer);
-
-        // configuration error mode 
-        $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // prepare query : security 
         $query = "SELECT count(*) FROM users where username='$username' and passwd='$password'";
-        $result = $connexion->query($query);
+        $result = mysqli_query($conn, $query);
 
         if ($result) {
-            $count = $result->fetchColumn();
+            $row_count = mysqli_num_rows($result);
         
-            if ($count > 0) {
-                $_SESSION['username'] = $username;
+            if ($row_count > 0) {
                 header('Location: index.php');
             } else {
-                echo "Aucun résultat trouvé";
+                echo "Il n'y a pas de résultat.";
             }
+            mysqli_free_result($result);
         } else {
-            echo "Erreur lors de l'exécution de la requête : ";
-            print_r($connexion->errorInfo());
+            echo "Erreur lors de l'exécution de la requête : " . mysqli_error($conn);
         }
-        
-        // Redirection 
-        // header('Location: index.php');
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
         echo "Faux MDP " . $e->getMessage();
