@@ -16,6 +16,7 @@ function newUser($firstName, $name, $username, $email, $phone, $password, $role)
         
             if (mysqli_stmt_execute($statement)) {
                 $_SESSION['username'] = $username;
+                $_SESSION['role'] = $role;
                 header('Location: ../index.php');
             } else {
                 echo "Erreur lors de l'exécution de la requête : " . mysqli_error($conn);
@@ -41,6 +42,11 @@ function login($username, $password){
             $row_count = mysqli_num_rows($result);
         
             if ($row_count > 0) {
+                $_SESSION['username'] = $username;
+                $q = "SELECT roles FROM users where username='$username'";
+                $res = mysqli_query($conn, $q);
+                $row = $res->fetch_assoc();
+                $_SESSION['role'] = $row['roles'];
                 header('Location: ../index.php');
             } else {
                 echo "Il n'y a pas de résultat.";
