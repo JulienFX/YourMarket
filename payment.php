@@ -3,6 +3,16 @@
 <head>
   <title>Payment Page</title>
   <style>
+    .navbar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center; 
+    }
+    
+    .navbar h1 {
+      margin: 0;
+    }
     .container {
       display: flex;
       justify-content: space-between;
@@ -40,6 +50,9 @@
   </style>
 </head>
 <body>
+<div class="navbar">
+    <h1>YourMarket</h1>
+  </div>
   <div class="container">
     <div class="form">
       <h2>Customer Information</h2>
