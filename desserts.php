@@ -22,6 +22,12 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
+        .item img {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 10px;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
@@ -65,7 +71,7 @@
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<button>Add to Cart</button><br><br>';
-                        echo '<button>Buy Now</button>';
+                        echo '<button onclick="openPayment();">Buy Now</button>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -76,6 +82,11 @@
             </div>
         </div>
     </div>
+    <script>
+    function openPayment() {
+      window.open("payment.php", "_blank");
+    }
+  </script>
 </body>
 
 </html>
