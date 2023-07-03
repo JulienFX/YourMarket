@@ -51,17 +51,25 @@ function login($username, $password){
         $connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // prepare query : security 
-        $query = "SELECT username, passwd FROM users where username=? and passwd=?";
-        $stmt = $connexion->prepare($query);
+        $query = "SELECT count(*) FROM users where username='$username' and passwd='$password'";
+        $result = $connexion->query($query);
 
-        // put inside an array value 
-        $array = array($username,$password);
-
-        // execute query
-        $stmt->execute($array);
-        $_SESSION['username'] = $username;
+        if ($result) {
+            $count = $result->fetchColumn();
+        
+            if ($count > 0) {
+                $_SESSION['username'] = $username;
+                header('Location: index.php');
+            } else {
+                echo "Aucun résultat trouvé";
+            }
+        } else {
+            echo "Erreur lors de l'exécution de la requête : ";
+            print_r($connexion->errorInfo());
+        }
+        
         // Redirection 
-        header('Location: index.php');
+        // header('Location: index.php');
     } catch(PDOException $e) {
         // En cas d'erreur, afficher le message d'erreur
         echo "Faux MDP " . $e->getMessage();
