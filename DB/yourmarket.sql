@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 02 juil. 2023 à 13:57
+-- Généré le : lun. 03 juil. 2023 à 10:55
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(100) NOT NULL,
   `firstName` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `familyName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `passwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -249,8 +249,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`username`, `firstName`, `name`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
-('cena', 'john', 'cena', 'jc@gmail.com', '04', 'jc', 0, 0),
+INSERT INTO `users` (`username`, `firstName`, `familyName`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
+('cena', 'john', 'ici', 'jc@gmail.com', '10', 'pp', 0, 0),
+('joha', 'julien', 'oha', 'joha@gmail.com', '06', '123', 0, 0),
+('hihi', 'haha', 'hoho', 'hehe@gmail.com', '06', 'huhu', 0, 0),
+('c', 'a', 'b', 'd@gmail.com', '04', 'e', 0, 0),
 ('j', 'jack', 'chong', 'j@gmail.com', '00', '01', 0, 0);
 COMMIT;
 
