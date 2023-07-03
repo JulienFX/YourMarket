@@ -70,7 +70,7 @@
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<button>Add to Cart</button><br><br>';
-                        echo '<button>Buy Now</button>';
+                        echo '<button onclick="openPayment();">Buy Now</button>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -81,6 +81,11 @@
             </div>
         </div>
     </div>
+    <script>
+    function openPayment() {
+      window.open("payment.php", "_blank");
+    }
+  </script>
 </body>
 
 </html>

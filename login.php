@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login page</title>
     <script>
@@ -8,6 +9,7 @@
         }
     </script>
 </head>
+
 <body>
     <?php
     require_once "connexionBdd.php";
@@ -15,7 +17,7 @@
     // Vérifier si le formulaire a été soumis
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Récupérer les valeurs du formulaire
-        if(isset($_POST["newUsername"])){ // enregistrement
+        if (isset($_POST["newUsername"])) { // enregistrement
             $firstName = $_POST["firstName"];
             $name = $_POST["name"];
             $username = $_POST["newUsername"];
@@ -25,12 +27,12 @@
 
             // Appeler la fonction pour inscrire l'utilisateur
             newUser($firstName, $name, $username, $email, $phone, $password);
-        }else{ // login
+        } else { // login
             $username = $_POST["username"];
             $password = $_POST["password"];
-            login($username,$password);
+            login($username, $password);
         }
-        
+
     }
     ?>
     <h2>Connexion</h2>
@@ -76,4 +78,5 @@
     <a href="index.php">return home</a>
 
 </body>
+
 </html>
