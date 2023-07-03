@@ -9,7 +9,7 @@
     require_once('connexionDB.php');
     if(isset($_SESSION["role"]) && $_SESSION['role'] <=1 ){ // <= 1 means admin ou seller 
       ?>
-      <li><a href="#">Manage product</a></li>
+      <li><a href="manageItems.php">Manage product</a></li>
       <?php
     }
     ?>
