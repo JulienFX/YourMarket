@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 03 juil. 2023 à 14:52
+-- Généré le : mar. 04 juil. 2023 à 14:28
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -66,7 +66,8 @@ CREATE TABLE IF NOT EXISTS `have` (
 --
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
-(4, 9);
+(4, 9),
+(5, 10);
 
 -- --------------------------------------------------------
 
@@ -109,25 +110,21 @@ CREATE TABLE IF NOT EXISTS `items` (
   `descriptions` varchar(999) NOT NULL,
   `price` double NOT NULL,
   `categories` int NOT NULL,
-  `available` tinyint(1) NOT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1',
+  `sellType` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
 --
 
-INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`) VALUES
-(1, 'm', 'k', 2, 1, 0),
-(2, 'm', 'k', 2, 1, 0),
-(3, 'm', 'k', 2, 1, 0),
-(4, 'a', 'b', 10, 1, 0),
-(5, 'kals', 'as', 77, 1, 0),
-(6, 'kals', 'as', 77, 1, 0),
-(7, 'kals', 'as', 77, 1, 0),
-(8, 'kals', 'as', 77, 1, 0),
-(9, 'kals', 'as', 77, 1, 0),
-(10, 'item', 'best', 999, 2, 0);
+INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`) VALUES
+(3, 'm', 'k', 2, 1, 0, 0),
+(4, 'a', 'b', 10, 1, 0, 0),
+(9, 'kals', 'as', 77, 1, 0, 0),
+(10, 'item', 'best', 999, 2, 0, 0),
+(11, 'coca', 'cherry', 50, 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -182,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
@@ -192,7 +189,8 @@ INSERT INTO `picturesvideos` (`id`, `link`) VALUES
 (1, 'Photos/Items/FRNG.png'),
 (2, 'Photos/Items/FRNG.png'),
 (3, 'Photos/Items/FRNG.png'),
-(4, 'Photos/Items/FRNG.png');
+(4, 'Photos/Items/FRNG.png'),
+(5, 'Photos/Items/FRNG.png');
 
 -- --------------------------------------------------------
 
@@ -253,7 +251,8 @@ CREATE TABLE IF NOT EXISTS `sell` (
 INSERT INTO `sell` (`username`, `idItem`) VALUES
 ('j', 0),
 ('j', 8),
-('j', 9);
+('j', 9),
+('j', 10);
 
 -- --------------------------------------------------------
 

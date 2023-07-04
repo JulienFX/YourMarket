@@ -49,7 +49,7 @@
         <div class="profile-dropdown">
             <a href="profil.php">Profil</a>
             <br>
-            <a href="disconnect.php">Disconnect</a>
+            <a href="disconnect.php">Logout</a>
         </div>
       </div>
       <?php
