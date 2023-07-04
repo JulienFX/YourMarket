@@ -13,7 +13,8 @@
         $description = $_POST["description"];
         $price = $_POST["price"];
         $category = $_POST["category"];
-        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories) VALUES ('$name', '$description', $price, '$category')";
+        $sellType = $_POST["sellType"];
+        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType) VALUES ('$name', '$description', $price, '$category','$sellType')";
         $lastInsert = "SELECT MAX(id) from items"; // last item insert
         $result = mysqli_query($conn, $lastInsert);
         $row = $result->fetch_assoc();
@@ -84,6 +85,13 @@
             <select name="category" id="category" required>
                 <option value="1" id="cake">Cakes</option>
                 <option value="2" id="electronic">Electronics</option>
+            </select><br>
+            <label for="sellType">Sell type : </label>
+            <select name="sellType" id="category" required>
+                <option value="1" id="cake">Bids</option>
+                <option value="2" id="electronic">Orders</option>
+                <option value="3" id="electronic">Offers</option>
+                <!-- ADD OTHERS VALUES -->
             </select><br>
 
             <label for="photos">Photos:</label>
