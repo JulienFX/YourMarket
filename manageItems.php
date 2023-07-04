@@ -14,7 +14,7 @@
       </nav>
       <div class="content">
         <a href="addItem.php">add an item</a>
-        <a href="">see my items</a>
+        <a href="myItems.php">see my items</a>
       </div>
     </div>
   <footer>
