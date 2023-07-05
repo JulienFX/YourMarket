@@ -43,7 +43,7 @@
           $id = $_GET["deleteId"];
           $delete = mysqli_query($conn,"DELETE FROM items where id='$id'");
           header("location:myItems.php");
-          die();
+          exit;
         }
     ?>
         </div>

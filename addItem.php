@@ -15,16 +15,13 @@
         $category = $_POST["category"];
         $sellType = $_POST["sellType"];
         $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType) VALUES ('$name', '$description', $price, '$category','$sellType')";
-        $lastInsert = "SELECT MAX(id) from items"; // last item insert
-        $result = mysqli_query($conn, $lastInsert);
-        $row = $result->fetch_assoc();
-        // print_r($row);
-        $idItem = $row['MAX(id)'];
-        $username = $_SESSION["username"];
-
-        $insertSellQuery = "INSERT INTO sell (username, idItem) VALUES ('$username', '$idItem')";
+        if ($conn->query($insertItemQuery) === TRUE) {
+            $lastInsertIdItem = $conn->insert_id; 
+            $result = mysqli_query($conn, $lastInsertIdItem);
+            $username = $_SESSION["username"];
+            $insertSellQuery = "INSERT INTO sell (username, idItem) VALUES ('$username', '$lastInsertIdItem')";
+        }
         if ($conn->query($insertItemQuery) === TRUE && $conn->query($insertSellQuery) === TRUE) {
-            $itemId = $conn->insert_id;
 
             // Insérer les photos dans la table "pictures"
             if (isset($_FILES["photos"])) {
@@ -42,19 +39,21 @@
 
                         // Insérer le chemin de la photo dans la table "pictures"
                         $insertPhotoQuery = "INSERT INTO picturesvideos (link) VALUES ('$uploadPath')";
-                        $conn->query($insertPhotoQuery);
-                        $lastInsert = "SELECT MAX(id) FROM picturesvideos";
-                        $res = mysqli_query($conn,$lastInsert);
-                        $row = $res->fetch_assoc();
-                        $idLink = $row['MAX(id)'];
-                        $insertHave = "INSERT INTO have (idLink, idItem) VALUES ('$idLink','$idItem')";
-                        $conn->query($insertHave);
+                        if ($conn->query($insertPhotoQuery) === TRUE) {
+                            $idLink = $conn->insert_id; 
+                            $result = mysqli_query($conn, $idLink);
+                
+                            $insertHave = "INSERT INTO have (idLink, idItem) VALUES ('$idLink','$lastInsertIdItem')";
+                        }
 
                     }
                 }
             }
 
-            echo "Item added successfully!";
+            if($conn->query($insertHave)===TRUE){
+                echo "Item added successfully!";
+            }
+            
         } else {
             echo "Error: " . $conn->error;
         }
