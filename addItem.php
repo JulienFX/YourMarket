@@ -78,7 +78,7 @@
             <textarea name="description" id="description" required></textarea><br>
 
             <label for="price">Price:</label>
-            <input type="number" name="price" id="price" required><br>
+            <input type="number" name="price" id="price" step="0.01" required><br>
 
             <label for="category">Category:</label>
             <select name="category" id="category" required>
