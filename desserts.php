@@ -69,7 +69,7 @@
                         echo '<h2>' . $row["name"] . '</h2>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
-                        echo '<button>Add to Cart</button><br><br>';
+                        echo '<button class="add-to-cart">Add to Cart</button><br><br>';
                         echo '<button onclick="openPayment();">Buy Now</button>';
                         echo '</div>';
                         echo '</div>';
