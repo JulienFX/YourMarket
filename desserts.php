@@ -46,20 +46,10 @@
         <div class="content">
             <div class="row">
                 <?php
-                $servername = "localhost"; // adress server mysql
-                $usernameServer = "root"; // username mysql
-                $passwordServer = ""; // passsword mysql
-                $dbname = "yourmarket"; // db name
-                
-                // Create a new connection
-                $conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
-
-                // Check the connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                 require_once('connexionDB.php');
+                 global $conn;
                 // Fetch items from the table
-                $sql = "SELECT * FROM items";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,available,sellType,idLink,link FROM items as i natural join have as h inner join picturesvideos as pv on h.idLink=pv.id where i.id in (SELECT idItem from sell)  group by i.id";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -68,7 +58,7 @@
                         echo '<div class="column">';
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
-                        echo '<img src="Photos/xbox.png" alt="">';
+                        echo '<img src='. $row["link"] . '>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<button class="add-to-cart">Add to Cart</button><br><br>';
