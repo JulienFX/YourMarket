@@ -35,7 +35,9 @@
 <body>
 
     <head>
-        <?php include('Constant/head.php'); ?>
+        <?php
+        session_start();
+        include('Constant/head.php'); ?>
     </head>
     <div class="page">
         <nav>
@@ -65,8 +67,8 @@
                     while ($row = $result->fetch_assoc()) {
                         echo '<div class="column">';
                         echo '<div class="item">';
+                        echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src="Photos/xbox.png" alt="">';
-                        echo '<h2>' . $row["name"] . '</h2>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<button class="add-to-cart">Add to Cart</button><br><br>';

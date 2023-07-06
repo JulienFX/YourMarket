@@ -49,12 +49,12 @@
         <div class="profile-dropdown">
             <a href="profil.php">Profil</a>
             <br>
-            <a href="disconnect.php">Disconnect</a>
+            <a href="disconnect.php">Logout</a>
         </div>
       </div>
       <?php
       }else{
-        echo '<a href="login.php">Login</a>';
+        echo '<a href="../UserConnexion/formLoginRegister.php">Login</a>';
       } ?>
       
     </div>

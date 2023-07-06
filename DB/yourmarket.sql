@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 02 juil. 2023 à 13:57
+-- Généré le : mar. 04 juil. 2023 à 14:28
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -61,6 +61,14 @@ CREATE TABLE IF NOT EXISTS `have` (
   PRIMARY KEY (`idLink`,`idItem`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `have`
+--
+
+INSERT INTO `have` (`idLink`, `idItem`) VALUES
+(4, 9),
+(5, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -98,13 +106,25 @@ CREATE TABLE IF NOT EXISTS `hold` (
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
+  `nameItem` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `descriptions` varchar(999) NOT NULL,
-  `price` int NOT NULL,
+  `price` double NOT NULL,
   `categories` int NOT NULL,
-  `available` tinyint(1) NOT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1',
+  `sellType` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `items`
+--
+
+INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`) VALUES
+(3, 'm', 'k', 2, 1, 0, 0),
+(4, 'a', 'b', 10, 1, 0, 0),
+(9, 'kals', 'as', 77, 1, 0, 0),
+(10, 'item', 'best', 999, 2, 0, 0),
+(11, 'coca', 'cherry', 50, 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -159,7 +179,18 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `picturesvideos`
+--
+
+INSERT INTO `picturesvideos` (`id`, `link`) VALUES
+(1, 'Photos/Items/FRNG.png'),
+(2, 'Photos/Items/FRNG.png'),
+(3, 'Photos/Items/FRNG.png'),
+(4, 'Photos/Items/FRNG.png'),
+(5, 'Photos/Items/FRNG.png');
 
 -- --------------------------------------------------------
 
@@ -213,6 +244,16 @@ CREATE TABLE IF NOT EXISTS `sell` (
   PRIMARY KEY (`username`,`idItem`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `sell`
+--
+
+INSERT INTO `sell` (`username`, `idItem`) VALUES
+('j', 0),
+('j', 8),
+('j', 9),
+('j', 10);
+
 -- --------------------------------------------------------
 
 --
@@ -236,7 +277,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(100) NOT NULL,
   `firstName` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `familyName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(15) NOT NULL,
   `passwd` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -249,9 +290,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`username`, `firstName`, `name`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
-('cena', 'john', 'cena', 'jc@gmail.com', '04', 'jc', 0, 0),
-('j', 'jack', 'chong', 'j@gmail.com', '00', '01', 0, 0);
+INSERT INTO `users` (`username`, `firstName`, `familyName`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
+('cena', 'john', 'ici', 'jc@gmail.com', '10', 'pp', 0, 0),
+('joha', 'julien', 'oha', 'joha@gmail.com', '06', '123', 0, 0),
+('j', 'j', 'j', 'j@gmail.com', '77', 'j', 1, 0),
+('w', 'w', 'ww', 'w@gmail.com', '00', '123', 1, 0),
+('p', 'p', 'p', 'p@gmail.com', '111', 'p', 2, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
