@@ -38,7 +38,7 @@
         }
         
         if(isset($_GET["editId"])){
-
+          header("location:editItem.php?id=".$_GET["editId"]);
         }else if(isset($_GET["deleteId"])){
           $id = $_GET["deleteId"];
           $delete = mysqli_query($conn,"DELETE FROM items where id='$id'");
