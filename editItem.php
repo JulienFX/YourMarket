@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
     // $id = $_POST['id'];
     $nameItem = $_POST['nameItem'];
-    $descriptions = $_POST['descriptions'];
+    $descriptions = $_POST['description'];
     $price =$_POST['price'];
     $categories = $_POST['categories'];
     $available = $_POST['available'];
