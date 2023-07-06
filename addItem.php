@@ -21,7 +21,7 @@
             $username = $_SESSION["username"];
             $insertSellQuery = "INSERT INTO sell (username, idItem) VALUES ('$username', '$lastInsertIdItem')";
         }
-        if ($conn->query($insertItemQuery) === TRUE && $conn->query($insertSellQuery) === TRUE) {
+        if ($conn->query($insertSellQuery) === TRUE) {
 
             // Insérer les photos dans la table "pictures"
             if (isset($_FILES["photos"])) {
