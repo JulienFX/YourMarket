@@ -18,7 +18,7 @@
       global $conn;
         // Fetch items from the table
         $username = $_SESSION["username"];
-        $sql = "SELECT i.id,nameItem,descriptions,price,categories,available,sellType,idLink,link FROM items as i natural join have as h inner join picturesvideos as pv on h.idLink=pv.id where i.id in (SELECT idItem from sell where username ='$username') group by idLink";
+        $sql = "SELECT i.id,nameItem,descriptions,price,categories,available,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id  where i.id in (SELECT idItem from sell where username ='$username') ";
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
@@ -38,7 +38,7 @@
         }
         
         if(isset($_GET["editId"])){
-
+          header("location:editItem.php?id=".$_GET["editId"]);
         }else if(isset($_GET["deleteId"])){
           $id = $_GET["deleteId"];
           $delete = mysqli_query($conn,"DELETE FROM items where id='$id'");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 juil. 2023 à 08:40
+-- Généré le : jeu. 06 juil. 2023 à 22:32
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bids` (
   `itemId` int NOT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -45,8 +45,9 @@ DROP TABLE IF EXISTS `contains`;
 CREATE TABLE IF NOT EXISTS `contains` (
   `cartId` int NOT NULL,
   `itemId` int NOT NULL,
-  PRIMARY KEY (`cartId`,`itemId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`cartId`,`itemId`),
+  KEY `fk_itemsCart` (`itemId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -58,15 +59,16 @@ DROP TABLE IF EXISTS `have`;
 CREATE TABLE IF NOT EXISTS `have` (
   `idLink` int NOT NULL,
   `idItem` int NOT NULL,
-  PRIMARY KEY (`idLink`,`idItem`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`idLink`,`idItem`),
+  KEY `fk_idLinkForItem` (`idItem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `have`
 --
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
-(29, 60);
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `historicoffers` (
   `towardUserId` int NOT NULL,
   `price` int NOT NULL,
   `status` int NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -94,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `hold` (
   `orderId` int NOT NULL,
   `username` varchar(100) NOT NULL,
   PRIMARY KEY (`orderId`,`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -112,15 +114,14 @@ CREATE TABLE IF NOT EXISTS `items` (
   `available` tinyint(1) NOT NULL DEFAULT '1',
   `sellType` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
 --
 
 INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`) VALUES
-(61, 'test', 'ok', 999, 1, 1, 1),
-(60, 'test', 'ok', 999, 1, 1, 1);
+(2, 'espagne', 'turkey', 40, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `make` (
   `username` varchar(100) NOT NULL,
   `offerId` int NOT NULL,
   PRIMARY KEY (`username`,`offerId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `offers` (
   `offerAmount` int NOT NULL,
   `offerTime` date NOT NULL,
   PRIMARY KEY (`offerId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `itemId` int NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`orderId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -175,14 +176,15 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
 --
 
 INSERT INTO `picturesvideos` (`id`, `link`) VALUES
-(29, 'Photos/Items/motherboard.png');
+(1, 'Photos/Items/FRNG.png'),
+(2, 'Photos/Items/xbox.png');
 
 -- --------------------------------------------------------
 
@@ -195,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `place` (
   `bidId` int NOT NULL,
   `username` varchar(100) NOT NULL,
   PRIMARY KEY (`bidId`,`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -208,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `possess` (
   `username` varchar(100) NOT NULL,
   `cartId` int NOT NULL,
   PRIMARY KEY (`username`,`cartId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -221,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `put` (
   `username` varchar(100) NOT NULL,
   `idLink` int NOT NULL,
   PRIMARY KEY (`username`,`idLink`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -234,15 +236,15 @@ CREATE TABLE IF NOT EXISTS `sell` (
   `username` varchar(100) NOT NULL,
   `idItem` int NOT NULL,
   PRIMARY KEY (`username`,`idItem`),
-  KEY `fk_sell_items` (`idItem`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_sell_item` (`idItem`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `sell`
 --
 
 INSERT INTO `sell` (`username`, `idItem`) VALUES
-('j', 60);
+('j', 2);
 
 -- --------------------------------------------------------
 
@@ -255,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `shoppingcart` (
   `cartId` int NOT NULL,
   `quantity` int NOT NULL,
   PRIMARY KEY (`cartId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -274,18 +276,39 @@ CREATE TABLE IF NOT EXISTS `users` (
   `roles` int NOT NULL,
   `activated` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`username`, `firstName`, `familyName`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
-('cena', 'john', 'ici', 'jc@gmail.com', '10', 'pp', 0, 0),
-('joha', 'julien', 'oha', 'joha@gmail.com', '06', '123', 0, 0),
-('j', 'jj', 'j', 'j@gmail.com', '77', 'j', 1, 0),
-('w', 'w', 'ww', 'w@gmail.com', '00', '123', 1, 0),
-('p', 'p', 'p', 'p@gmail.com', '111', 'p', 2, 0);
+('j', 'john', 'cena', 'jc@gmail.com', '0690', 'j', 1, 0);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `contains`
+--
+ALTER TABLE `contains`
+  ADD CONSTRAINT `fk_cartitems` FOREIGN KEY (`cartId`) REFERENCES `shoppingcart` (`cartId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_itemsCart` FOREIGN KEY (`itemId`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `have`
+--
+ALTER TABLE `have`
+  ADD CONSTRAINT `fk_idItemsPics` FOREIGN KEY (`idItem`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_idLinkForItem` FOREIGN KEY (`idItem`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `sell`
+--
+ALTER TABLE `sell`
+  ADD CONSTRAINT `fk_sell_item` FOREIGN KEY (`idItem`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_username_seller` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
