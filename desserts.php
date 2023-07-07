@@ -46,7 +46,6 @@
         <div class="content">
             <div class="row">
                 <?php
-                $user = $_SESSION['username'];
                 require_once('connexionDB.php');
                 global $conn;
                 // Fetch items from the table
@@ -69,10 +68,39 @@
                         echo '</div>';
                     }
                 }
-                if (isset($_GET["addTocart"])) {
-                    $username = $_GET['addTocart'];
-                    
+                if (isset($_SESSION['username'])) {
+                    $username = $_SESSION['username'];
+                    if (isset($_GET["addTocart"])) {
+                        $value = $_GET['addTocart'];
+                        $sql = "SELECT COUNT(*) AS count FROM possess WHERE username = '$username'";
+                        $result = $conn->query($sql);
 
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $count = $row['count'];
+                            $id = 0;
+                            if ($count == 0) {
+                                $sql = "INSERT INTO shoppingcart (quantity) VALUES (?)";
+                                $stmt = $conn->prepare($sql);
+
+                                $stmt->bind_param("i", $quantity);
+
+                                $quantity = 0;
+
+                                if ($stmt->execute()) {
+                                    echo "Record inserted successfully.";
+                                } else {
+                                    echo "Error inserting record: " . $stmt->error;
+                                }
+                            } else {
+
+                            }
+                        }
+                    }
+                } else {
+                    if (isset($_GET["addTocart"])) {
+                        header('Location: UserConnexion/formLoginRegister.php');
+                    }
                 }
                 // Close the database connection
                 $conn->close();
@@ -80,6 +108,11 @@
             </div>
         </div>
     </div>
+    <footer>
+        <?php
+        include('Constant/footer.php');
+        ?>
+    </footer>
     <script>
         function openPayment() {
             window.open("payment.php", "_blank");
