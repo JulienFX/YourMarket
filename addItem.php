@@ -14,7 +14,8 @@
         $price = $_POST["price"];
         $category = $_POST["category"];
         $sellType = $_POST["sellType"];
-        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType) VALUES ('$name', '$description', $price, '$category','$sellType')";
+        $quantity = $_POST["quantity"];
+        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType,quantity) VALUES ('$name', '$description', $price, '$category','$sellType','$quantity')";
         if ($conn->query($insertItemQuery) === TRUE) {
             $lastInsertIdItem = $conn->insert_id; 
             $result = mysqli_query($conn, $lastInsertIdItem);
@@ -77,6 +78,12 @@
             <label for="description">Description:</label>
             <textarea name="description" id="description" required></textarea><br>
 
+            <label for="sellType">Sell type : </label>
+            <select name="sellType" id="category" required>
+                <option value="1" id="1">Fixed price & Offers</option>
+                <option value="2" id="2">Auctions</option>
+            </select><br>
+            
             <label for="price">Price:</label>
             <input type="number" name="price" id="price" step="0.01" required><br>
 
@@ -85,11 +92,9 @@
                 <option value="1" id="cake">Cakes</option>
                 <option value="2" id="electronic">Electronics</option>
             </select><br>
-            <label for="sellType">Sell type : </label>
-            <select name="sellType" id="category" required>
-                <option value="1" id="1">Fixed price & Offers</option>
-                <option value="2" id="2">Auctions</option>
-            </select><br>
+            
+            <label for="quantity">Quantity :</label>
+            <input type="number" name="quantity" id="quantity" required><br>
 
             <label for="photos">Photos:</label>
             <input type="file" name="photos[]" id="photos" multiple required><br>

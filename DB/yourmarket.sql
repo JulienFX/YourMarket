@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 07 juil. 2023 à 13:21
+-- Généré le : ven. 07 juil. 2023 à 18:07
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS `contains`;
 CREATE TABLE IF NOT EXISTS `contains` (
   `cartId` int NOT NULL,
   `itemId` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`cartId`,`itemId`),
   KEY `fk_itemsCart` (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -68,7 +69,24 @@ CREATE TABLE IF NOT EXISTS `have` (
 --
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
-(2, 2);
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10),
+(11, 11),
+(12, 12),
+(13, 13),
+(14, 14),
+(15, 15),
+(16, 16),
+(17, 17),
+(18, 18),
+(19, 19);
 
 -- --------------------------------------------------------
 
@@ -113,15 +131,33 @@ CREATE TABLE IF NOT EXISTS `items` (
   `categories` int NOT NULL,
   `available` tinyint(1) NOT NULL DEFAULT '1',
   `sellType` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
 --
 
-INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`) VALUES
-(2, 'espagne', 'turkey', 40, 0, 1, 1);
+INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`, `quantity`) VALUES
+(2, 'espagne', 'turkey', 40, 0, 1, 1, 1),
+(3, 'ppp', 'oooo', 4444, 1, 1, 0, 1),
+(4, 'ppp', 'oooo', 4444, 1, 1, 0, 1),
+(5, 'ppp', 'oooo', 4444, 1, 1, 0, 1),
+(6, 'ppp', 'oooo', 4444, 1, 1, 0, 1),
+(7, 'producto', 'zaaa', 874, 1, 1, 2, 1),
+(8, 'producto', 'zaaa', 874, 1, 1, 2, 1),
+(9, 'name', 'deee', -0.04, 1, 1, 2, 1),
+(10, 'marine', 'juane', 60, 1, 1, 2, 1),
+(11, 'mmmm', 'mmm', 0.01, 1, 1, 2, 1),
+(12, 'mmmm', 'mmm', 0.01, 1, 1, 2, 1),
+(13, 'mmmm', 'mmm', 0.01, 1, 1, 2, 1),
+(14, 'mmmmmmmmmmmmmmmmmmmmmmmmmm', 'messi', 10, 1, 1, 2, 1),
+(15, 'qsd', 'sdm', 0.01, 1, 1, 2, 1),
+(16, 'merci', 'item', 45, 1, 1, 1, 1),
+(17, 'qs', 'sqd', 4, 1, 1, 1, 1),
+(18, 'merlo', 'merde', 844, 1, 1, 2, 5),
+(19, 'maman', 'pauvreté', 0.01, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -176,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
@@ -184,7 +220,24 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
 
 INSERT INTO `picturesvideos` (`id`, `link`) VALUES
 (1, 'Photos/Items/FRNG.png'),
-(2, 'Photos/Items/xbox.png');
+(2, 'Photos/Items/xbox.png'),
+(3, 'Photos/Items/FRNG.png'),
+(4, 'Photos/Items/FRNG.png'),
+(5, 'Photos/Items/FRNG.png'),
+(6, 'Photos/Items/FRNG.png'),
+(7, 'Photos/Items/FRNG.png'),
+(8, 'Photos/Items/FRNG.png'),
+(9, 'Photos/Items/xbox.png'),
+(10, 'Photos/Items/FRNG.png'),
+(11, 'Photos/Items/xbox.png'),
+(12, 'Photos/Items/xbox.png'),
+(13, 'Photos/Items/xbox.png'),
+(14, 'Photos/Items/xbox.png'),
+(15, 'Photos/Items/xbox.png'),
+(16, 'Photos/Items/xbox.png'),
+(17, 'Photos/Items/motherboard.png'),
+(18, 'Photos/Items/xbox.png'),
+(19, 'Photos/Items/motherboard.png');
 
 -- --------------------------------------------------------
 
@@ -244,7 +297,24 @@ CREATE TABLE IF NOT EXISTS `sell` (
 --
 
 INSERT INTO `sell` (`username`, `idItem`) VALUES
-('j', 2);
+('j', 2),
+('j', 3),
+('j', 4),
+('j', 5),
+('j', 6),
+('j', 7),
+('j', 8),
+('j', 9),
+('j', 10),
+('j', 11),
+('j', 12),
+('j', 13),
+('j', 14),
+('j', 15),
+('j', 16),
+('j', 17),
+('j', 18),
+('j', 19);
 
 -- --------------------------------------------------------
 
