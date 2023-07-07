@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 06 juil. 2023 à 22:32
+-- Généré le : ven. 07 juil. 2023 à 13:21
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -254,7 +254,7 @@ INSERT INTO `sell` (`username`, `idItem`) VALUES
 
 DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE IF NOT EXISTS `shoppingcart` (
-  `cartId` int NOT NULL,
+  `cartId` int NOT NULL AUTO_INCREMENT,
   `quantity` int NOT NULL,
   PRIMARY KEY (`cartId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
