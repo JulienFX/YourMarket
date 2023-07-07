@@ -143,8 +143,9 @@
 
                                             // Check if the insertion was successful
                                             if ($stmt->affected_rows > 0) {
-                                                echo "Record inserted successfully.";
+
                                             }
+                                            $stmt->close();
                                         } else {
                                             $sql = "SELECT * FROM contains WHERE cartId = '$cartId' AND itemId = '$value'";
                                             $result = $conn->query($sql);
@@ -170,7 +171,6 @@
                                         }
                                     }
                                 }
-                                $stmt->close();
                             }
                         }
                     }
