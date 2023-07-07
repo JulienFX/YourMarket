@@ -78,22 +78,99 @@
                         if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
                             $count = $row['count'];
-                            $id = 0;
                             if ($count == 0) {
                                 $sql = "INSERT INTO shoppingcart (quantity) VALUES (?)";
                                 $stmt = $conn->prepare($sql);
 
                                 $stmt->bind_param("i", $quantity);
 
-                                $quantity = 0;
+                                $quantity = 1;
 
                                 if ($stmt->execute()) {
-                                    echo "Record inserted successfully.";
-                                } else {
-                                    echo "Error inserting record: " . $stmt->error;
+                                    $sql = "SELECT cartId FROM  shoppingcart ORDER BY cartId DESC LIMIT 1";
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $cartId = $row['cartId'];
+                                        $sql = "INSERT INTO possess (username, cartId) VALUES (?, ?)";
+                                        $stmt = $conn->prepare($sql);
+                                        // Bind the parameter values
+                                        $stmt->bind_param("si", $username, $cartId);
+
+                                        // Execute the statement
+                                        $stmt->execute();
+
+                                        // Check if the insertion was successful
+                                        if ($stmt->affected_rows > 0) {
+                                            $sql = "INSERT INTO contains (cartId, itemId) VALUES (?, ?)";
+                                            $stmt = $conn->prepare($sql);
+                                            // Bind the parameter values
+                                            $stmt->bind_param("si", $cartId, $value);
+
+                                            // Execute the statement
+                                            $stmt->execute();
+
+                                            // Check if the insertion was successful
+                                            if ($stmt->affected_rows > 0) {
+                                                echo "Record inserted successfully.";
+                                            }
+                                        }
+                                    }
                                 }
                             } else {
+                                $sql = "SELECT * FROM possess WHERE username = '$username'";
+                                $result = $conn->query($sql);
 
+                                if ($result->num_rows > 0) {
+                                    $row = $result->fetch_assoc();
+                                    $cartId = $row['cartId']; // Assuming the column name for the cart ID is 'cart_id'
+                
+                                    $sql = "SELECT COUNT(*) AS count FROM contains WHERE cartId = '$cartId' AND itemId = '$value'";
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $count = $row['count'];
+                                        if ($count == 0) {
+                                            $sql = "INSERT INTO contains (cartId, itemId) VALUES (?, ?)";
+                                            $stmt = $conn->prepare($sql);
+                                            // Bind the parameter values
+                                            $stmt->bind_param("si", $cartId, $value);
+
+                                            // Execute the statement
+                                            $stmt->execute();
+
+                                            // Check if the insertion was successful
+                                            if ($stmt->affected_rows > 0) {
+                                                echo "Record inserted successfully.";
+                                            }
+                                        } else {
+                                            $sql = "SELECT * FROM contains WHERE cartId = '$cartId' AND itemId = '$value'";
+                                            $result = $conn->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                $row = $result->fetch_assoc();
+                                                $quantity = $row['quantity'] + 1;
+                                                $sql = "UPDATE contains SET quantity = $quantity WHERE cartId = '$cartId' AND itemId = '$value'";
+                                                if ($conn->query($sql) === TRUE) {
+                                                    $sql = "SELECT * FROM shoppingcart WHERE cartId = '$cartId'";
+                                                    $result = $conn->query($sql);
+
+                                                    if ($result->num_rows > 0) {
+                                                        $row = $result->fetch_assoc();
+                                                        $quantity = $row['quantity'] + 1;
+                                                        $sql = "UPDATE shoppingcart SET quantity = $quantity WHERE cartId = '$cartId'";
+                                                        if ($conn->query($sql) === TRUE) {
+                                                            echo "Quantity updated successfully.";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                $stmt->close();
                             }
                         }
                     }
