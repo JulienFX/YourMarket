@@ -46,8 +46,9 @@
         <div class="content">
             <div class="row">
                 <?php
-                 require_once('connexionDB.php');
-                 global $conn;
+                $user = $_SESSION['username'];
+                require_once('connexionDB.php');
+                global $conn;
                 // Fetch items from the table
                 $sql = "SELECT i.id,nameItem,descriptions,price,categories,available,sellType,idLink,link FROM items as i natural join have as h inner join picturesvideos as pv on h.idLink=pv.id where i.id in (SELECT idItem from sell)  group by idLink";
                 $result = $conn->query($sql);
@@ -58,14 +59,20 @@
                         echo '<div class="column">';
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
-                        echo '<img src='. $row["link"] . '>';
+                        echo '<img src=' . $row["link"] . '>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
-                        echo '<button class="add-to-cart">Add to Cart</button><br><br>';
+                        echo '<a href="desserts.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
+                        //echo '<button class="add-to-cart">Add to Cart</button><br><br>';
                         echo '<button onclick="openPayment();">Buy Now</button>';
                         echo '</div>';
                         echo '</div>';
                     }
+                }
+                if (isset($_GET["addTocart"])) {
+                    $username = $_GET['addTocart'];
+                    
+
                 }
                 // Close the database connection
                 $conn->close();
@@ -74,10 +81,10 @@
         </div>
     </div>
     <script>
-    function openPayment() {
-      window.open("payment.php", "_blank");
-    }
-  </script>
+        function openPayment() {
+            window.open("payment.php", "_blank");
+        }
+    </script>
 </body>
 
 </html>
