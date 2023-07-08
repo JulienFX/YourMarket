@@ -63,7 +63,7 @@
                         echo '<p>£' . $row["price"] . '</p>';
                         echo '<a href="desserts.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
                         //echo '<button class="add-to-cart">Add to Cart</button><br><br>';
-                        echo '<button onclick="openPayment();">Buy Now</button>';
+                        echo '<a href="payment.php?buy=' . $row['id'] . '" >Buy Now </a><br><br>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -113,7 +113,7 @@
 
                                             // Check if the insertion was successful
                                             if ($stmt->affected_rows > 0) {
-                                                echo "Record inserted successfully.";
+                                                //echo "Record inserted successfully.";
                                             }
                                         }
                                     }
@@ -143,7 +143,17 @@
 
                                             // Check if the insertion was successful
                                             if ($stmt->affected_rows > 0) {
+                                                $sql = "SELECT * FROM shoppingcart WHERE cartId = '$cartId'";
+                                                $result = $conn->query($sql);
 
+                                                if ($result->num_rows > 0) {
+                                                    $row = $result->fetch_assoc();
+                                                    $quantity = $row['quantity'] + 1;
+                                                    $sql = "UPDATE shoppingcart SET quantity = $quantity WHERE cartId = '$cartId'";
+                                                    if ($conn->query($sql) === TRUE) {
+                                                        //echo "Quantity updated successfully.";
+                                                    }
+                                                }
                                             }
                                             $stmt->close();
                                         } else {
@@ -163,7 +173,7 @@
                                                         $quantity = $row['quantity'] + 1;
                                                         $sql = "UPDATE shoppingcart SET quantity = $quantity WHERE cartId = '$cartId'";
                                                         if ($conn->query($sql) === TRUE) {
-                                                            echo "Quantity updated successfully.";
+                                                           // echo "Quantity updated successfully.";
                                                         }
                                                     }
                                                 }
@@ -173,6 +183,7 @@
                                 }
                             }
                         }
+                        header('Location: desserts.php');
                     }
                 } else {
                     if (isset($_GET["addTocart"])) {
@@ -190,11 +201,6 @@
         include('Constant/footer.php');
         ?>
     </footer>
-    <script>
-        function openPayment() {
-            window.open("payment.php", "_blank");
-        }
-    </script>
 </body>
 
 </html>

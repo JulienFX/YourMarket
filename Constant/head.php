@@ -40,7 +40,7 @@
       <button type="submit">Search</button>
     </div>
     <div>
-      <a href="">Your cart</a>
+      <a href="cart.php">Your cart</a>
       <?php 
       if(isset($_SESSION['username'])){
         ?>
