@@ -19,7 +19,9 @@
         .quantity-input {
             width: 50px;
         }
-        .edit-link, .delete-link {
+
+        .edit-link,
+        .delete-link {
             margin-left: 10px;
         }
     </style>
@@ -39,6 +41,7 @@
         </nav>
         <div class="content">
             <?php
+
             if (isset($_SESSION['username'])) {
                 require_once('connexionDB.php');
                 global $conn;
@@ -57,16 +60,22 @@
                         $itemImage = $row["link"];
                         $quantity = $row["quantity"];
                         $cartId = $row["cartId"];
+                        $itemId = $row["itemId"];
 
                         echo "<div class='cart-item'>";
                         echo "<img class='item-image' src='$itemImage' alt='Item Image'>";
                         echo "<span>Quantity: <input class='quantity-input' type='number' name='quantity[$cartId]' value='$quantity' min='1'></span>";
-                        echo "<a class='edit-link' href='edit_cart.php?cartId=$cartId'>Edit</a>";
-                        echo "<a class='delete-link' href='delete_cart.php?cartId=$cartId'>Delete</a>";
+                        echo "<a class='delete-link' href='cart.php?delete=$itemId'>Delete</a>";
                         echo "</div>";
                     }
-                } else {
-                    echo "No items found in the cart.";
+                }
+                if (isset($_GET["delete"])) {
+                    $itemId = $_GET["delete"];
+                    $sql = "DELETE FROM contains WHERE itemId = '$itemId' AND cartId = '$cartId'";
+
+                    if ($conn->query($sql) === TRUE) {
+                        header('Location: cart.php');
+                    }
                 }
                 // Close the connection
                 $conn->close();
