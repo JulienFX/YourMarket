@@ -49,7 +49,7 @@
                  require_once('connexionDB.php');
                  global $conn;
                 // Fetch items from the table
-                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=1";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=2 and quantity>0 ";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -59,10 +59,17 @@
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src='. $row["link"] . '>';
-                        echo '<p>' . $row["descriptions"] . '</p>';
-                        echo '<p>£' . $row["price"] . '</p>';
-                        echo '<button class="add-to-cart">Add to Cart</button><br><br>';
-                        echo '<button onclick="openPayment();">Buy Now</button>';
+                        echo '<p>Descriptions : ' . $row["descriptions"] . '</p>';
+                        if($row["sellType"]==1){
+                            echo '<p>Price for buy : £' . $row["price"] . '</p>';
+                            echo '<button class="add-to-cart">Add to Cart</button><br>';
+                            echo '<button onclick="openPayment();">Buy Now</button><br>';
+                            echo '<button >Negociate the price</button>';
+                            
+                        }else{
+                            echo '<p>Starting price for bids : £' . $row["price"] . '</p>';
+                            echo '<button>Auction now </button><br>';
+                        }
                         echo '</div>';
                         echo '</div>';
                     }
