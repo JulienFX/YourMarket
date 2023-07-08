@@ -46,10 +46,13 @@
         <div class="content">
             <div class="row">
                 <?php
-                 require_once('connexionDB.php');
-                 global $conn;
+                require_once('connexionDB.php');
+                global $conn;
+
+                $currentDatetime = date("Y-m-d H:i:s");
+
                 // Fetch items from the table
-                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=2 and quantity>0 ";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link,endDate FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=2 and quantity>0 ";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -67,6 +70,17 @@
                             echo '<button >Negociate the price</button>';
                             
                         }else{
+                            if ($currentDatetime >= $row["endDate"]) {
+                                // Le timer est expiré, effectuer les actions nécessaires
+                                echo "Le timer a expiré.";
+                            } else {
+                                $expiryTime = new DateTime($row["endDate"]);
+                                $currentDatetimeObj = new DateTime($currentDatetime);
+                                $interval = $currentDatetimeObj->diff($expiryTime);
+                                $remainingTime = $interval->format('%y années, %m mois, %d jours, %H heures, %I minutes et %S secondes');
+                                // Affichage du temps restant
+                                echo "Remaining time : " . $remainingTime;
+                            }
                             echo '<p>Starting price for bids : £' . $row["price"] . '</p>';
                             echo '<button>Auction now </button><br>';
                         }

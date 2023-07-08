@@ -15,7 +15,12 @@
         $category = $_POST["category"];
         $sellType = $_POST["sellType"];
         $quantity = $_POST["quantity"];
-        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType,quantity) VALUES ('$name', '$description', $price, '$category','$sellType','$quantity')";
+        if(isset($_POST["auctionEndDate"])){
+            $auctionEndDate = $_POST["auctionEndDate"];
+        }else{
+            $auctionEndDate= NULL;
+        }
+        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType,quantity,endDate) VALUES ('$name', '$description', $price, '$category','$sellType','$quantity','$auctionEndDate')";
         if ($conn->query($insertItemQuery) === TRUE) {
             $lastInsertIdItem = $conn->insert_id; 
             $result = mysqli_query($conn, $lastInsertIdItem);
@@ -78,12 +83,17 @@
             <label for="description">Description:</label>
             <textarea name="description" id="description" required></textarea><br>
 
-            <label for="sellType">Sell type : </label>
-            <select name="sellType" id="category" required>
-                <option value="1" id="1">Fixed price & Offers</option>
-                <option value="2" id="2">Auctions</option>
+            <label for="sellType">Sell type :</label>
+            <select name="sellType" id="sellType" onchange="toggleAuctionsBlock()" required>
+                <option value="1" id="fixed">Fixed price & Offers</option>
+                <option value="2" id="auctions">Auctions</option>
             </select><br>
-            
+
+            <div id="auctionsBlock" style="display: none;">
+                <label for="auctionEndDate">Auction End Date:</label>
+                <input type="datetime-local" name="auctionEndDate" id="auctionEndDate"><br>
+            </div>
+
             <label for="price">Price:</label>
             <input type="number" name="price" id="price" step="0.01" required><br>
 
@@ -108,5 +118,18 @@
     include('Constant/footer.php'); 
     ?>
   </footer>
+
+  <script>
+    function toggleAuctionsBlock() {
+      var sellType = document.getElementById("sellType");
+      var auctionsBlock = document.getElementById("auctionsBlock");
+
+      if (sellType.value === "2") {
+        auctionsBlock.style.display = "block";
+      } else {
+        auctionsBlock.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
