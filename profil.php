@@ -107,7 +107,7 @@ $conn->close();
     }
     $_SESSION['username'] = $username;
     // Close the database connection
-    // $conn->close();
+    $conn->close();
     header('Location: profil.php');
   }
  ?>
