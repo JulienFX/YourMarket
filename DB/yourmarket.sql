@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 07 juil. 2023 à 13:21
+-- Généré le : sam. 08 juil. 2023 à 11:04
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS `contains`;
 CREATE TABLE IF NOT EXISTS `contains` (
   `cartId` int NOT NULL,
   `itemId` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`cartId`,`itemId`),
   KEY `fk_itemsCart` (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -68,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `have` (
 --
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
-(2, 2);
+(29, 29),
+(30, 30);
 
 -- --------------------------------------------------------
 
@@ -111,17 +113,20 @@ CREATE TABLE IF NOT EXISTS `items` (
   `descriptions` varchar(999) NOT NULL,
   `price` double NOT NULL,
   `categories` int NOT NULL,
-  `available` tinyint(1) NOT NULL DEFAULT '1',
   `sellType` int NOT NULL,
+  `quantity` int NOT NULL DEFAULT '1',
+  `available` tinyint(1) NOT NULL DEFAULT '1',
+  `endDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
 --
 
-INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `available`, `sellType`) VALUES
-(2, 'espagne', 'turkey', 40, 0, 1, 1);
+INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `sellType`, `quantity`, `available`, `endDate`) VALUES
+(29, 'oui', 'oui', 60, 2, 2, 6, 1, '2027-01-06 16:30:00'),
+(30, 'non', 'n', 15, 2, 1, 1, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -176,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
@@ -184,7 +189,35 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
 
 INSERT INTO `picturesvideos` (`id`, `link`) VALUES
 (1, 'Photos/Items/FRNG.png'),
-(2, 'Photos/Items/xbox.png');
+(2, 'Photos/Items/xbox.png'),
+(3, 'Photos/Items/FRNG.png'),
+(4, 'Photos/Items/FRNG.png'),
+(5, 'Photos/Items/FRNG.png'),
+(6, 'Photos/Items/FRNG.png'),
+(7, 'Photos/Items/FRNG.png'),
+(8, 'Photos/Items/FRNG.png'),
+(9, 'Photos/Items/xbox.png'),
+(10, 'Photos/Items/FRNG.png'),
+(11, 'Photos/Items/xbox.png'),
+(12, 'Photos/Items/xbox.png'),
+(13, 'Photos/Items/xbox.png'),
+(14, 'Photos/Items/xbox.png'),
+(15, 'Photos/Items/xbox.png'),
+(16, 'Photos/Items/xbox.png'),
+(17, 'Photos/Items/motherboard.png'),
+(18, 'Photos/Items/xbox.png'),
+(19, 'Photos/Items/motherboard.png'),
+(20, 'Photos/Items/xbox.png'),
+(21, 'Photos/Items/motherboard.png'),
+(22, 'Photos/Items/electrician.png'),
+(23, 'Photos/Items/FRNG.png'),
+(24, 'Photos/Items/electrician.png'),
+(25, 'Photos/Items/xbox.png'),
+(26, 'Photos/Items/motherboard.png'),
+(27, 'Photos/Items/motherboard.png'),
+(28, 'Photos/Items/electrician.png'),
+(29, 'Photos/Items/motherboard.png'),
+(30, 'Photos/Items/xbox.png');
 
 -- --------------------------------------------------------
 
@@ -244,7 +277,8 @@ CREATE TABLE IF NOT EXISTS `sell` (
 --
 
 INSERT INTO `sell` (`username`, `idItem`) VALUES
-('j', 2);
+('j', 29),
+('j', 30);
 
 -- --------------------------------------------------------
 

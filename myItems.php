@@ -18,10 +18,10 @@
       global $conn;
         // Fetch items from the table
         $username = $_SESSION["username"];
-        $sql = "SELECT i.id,nameItem,descriptions,price,categories,available,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id  where i.id in (SELECT idItem from sell where username ='$username') ";
+        $sql = "SELECT i.id,nameItem,descriptions,price,categories,sellType,quantity,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id  where i.id in (SELECT idItem from sell where username ='$username') ";
         $result = $conn->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) { // !empty($result) && 
             // Output data of each row
             while ($row = $result->fetch_assoc()) {
                 echo '<div class="column">';

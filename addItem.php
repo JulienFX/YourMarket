@@ -3,24 +3,6 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
-  <script>
-        function afficherChampTexte() {
-            var choix = document.getElementById("choix").value;
-            var champPrixVente = document.getElementById("champ-prix-vente");
-            var champPrixDepart = document.getElementById("champ-prix-depart");
-            
-            if (choix === "1") {
-                champPrixVente.style.display = "block";
-                champPrixDepart.style.display = "none";
-            } else if (choix === "2") {
-                champPrixVente.style.display = "none";
-                champPrixDepart.style.display = "block";
-            } else {
-                champPrixVente.style.display = "none";
-                champPrixDepart.style.display = "none";
-            }
-        }
-    </script>
 </head>
 <body>
     <?php
@@ -32,7 +14,13 @@
         $price = $_POST["price"];
         $category = $_POST["category"];
         $sellType = $_POST["sellType"];
-        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType) VALUES ('$name', '$description', $price, '$category','$sellType')";
+        $quantity = $_POST["quantity"];
+        if(isset($_POST["auctionEndDate"])){
+            $auctionEndDate = $_POST["auctionEndDate"];
+        }else{
+            $auctionEndDate= NULL;
+        }
+        $insertItemQuery = "INSERT INTO items (nameItem, descriptions, price, categories,sellType,quantity,endDate) VALUES ('$name', '$description', $price, '$category','$sellType','$quantity','$auctionEndDate')";
         if ($conn->query($insertItemQuery) === TRUE) {
             $lastInsertIdItem = $conn->insert_id; 
             $result = mysqli_query($conn, $lastInsertIdItem);
@@ -95,6 +83,17 @@
             <label for="description">Description:</label>
             <textarea name="description" id="description" required></textarea><br>
 
+            <label for="sellType">Sell type :</label>
+            <select name="sellType" id="sellType" onchange="toggleAuctionsBlock()" required>
+                <option value="1" id="fixed">Fixed price & Offers</option>
+                <option value="2" id="auctions">Auctions</option>
+            </select><br>
+
+            <div id="auctionsBlock" style="display: none;">
+                <label for="auctionEndDate">Auction End Date:</label>
+                <input type="datetime-local" name="auctionEndDate" id="auctionEndDate"><br>
+            </div>
+
             <label for="price">Price:</label>
             <input type="number" name="price" id="price" step="0.01" required><br>
 
@@ -103,21 +102,9 @@
                 <option value="1" id="cake">Cakes</option>
                 <option value="2" id="electronic">Electronics</option>
             </select><br>
-            <label for="sellType">Sell type : </label>
-            <select id="choix" onchange="afficherChampTexte()">
-                <option value="">Select an option</option>
-                <option value="1">Bids & Offer</option>
-                <option value="2">Auctions</option>
-            </select>
-            <br><br>
-            <div id="champ-prix-vente" style="display: none;">
-                <label for="prix-vente">Prix de vente :</label>
-                <input type="text" id="prix-vente">
-            </div>
-            <div id="champ-prix-depart" style="display: none;">
-                <label for="prix-depart">Prix de départ :</label>
-                <input type="text" id="prix-depart">
-            </div>
+            
+            <label for="quantity">Quantity :</label>
+            <input type="number" name="quantity" id="quantity" required><br>
 
             <label for="photos">Photos:</label>
             <input type="file" name="photos[]" id="photos" multiple required><br>
@@ -131,5 +118,18 @@
     include('Constant/footer.php'); 
     ?>
   </footer>
+
+  <script>
+    function toggleAuctionsBlock() {
+      var sellType = document.getElementById("sellType");
+      var auctionsBlock = document.getElementById("auctionsBlock");
+
+      if (sellType.value === "2") {
+        auctionsBlock.style.display = "block";
+      } else {
+        auctionsBlock.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>
