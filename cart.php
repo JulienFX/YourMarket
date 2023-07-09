@@ -41,7 +41,6 @@
         </nav>
         <div class="content">
             <?php
-
             if (isset($_SESSION['username'])) {
                 require_once('connexionDB.php');
                 global $conn;
