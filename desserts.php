@@ -61,6 +61,7 @@
                         echo '<img src=' . $row["link"] . '>';
                         echo '<p>' . $row["descriptions"] . '</p>';
                         echo '<p>£' . $row["price"] . '</p>';
+                        echo '<p>Quantity Available: ' . $row["quantity"] . '</p>';
                         echo '<a href="desserts.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
                         //echo '<button class="add-to-cart">Add to Cart</button><br><br>';
                         echo '<a href="payment.php?buy=' . $row['id'] . '" >Buy Now </a><br><br>';
