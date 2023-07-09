@@ -16,17 +16,19 @@
         <?php
         require_once("connexionDB.php");
         global $conn;
-        $himself = $_SESSION["username"];
-        $sql = "SELECT username FROM users where username!='$himself'";
+        $user = $_GET["username"];
+        $sql = "SELECT * FROM users where username='".$user."'";
         $result = $conn->query($sql);
         if($result->num_rows>0){
-            while ($row = $result->fetch_assoc()){
-                echo $row["username"];
-                echo ' <a href="seeProfil.php?username='.$row["username"].'">see his profil</a> ';
-                echo '<a href="">delete him</a>';
-                echo '<br>';
-            }
+            $row = $result->fetch_assoc();
+            echo "username : ". $row["username"]."<br>";
+            echo "First name : ".$row["firstName"]."<br>";
+            echo "Family Name : ".$row["familyName"]."<br>";
+            echo "Email : ".$row["email"]."<br>";
+            echo "Phone : ".$row["phone"]."<br>";
+            
         }
+
         ?>
       </div>
     </div>
