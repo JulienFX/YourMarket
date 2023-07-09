@@ -23,9 +23,19 @@
             while ($row = $result->fetch_assoc()){
                 echo $row["username"];
                 echo ' <a href="seeProfil.php?username='.$row["username"].'">see his profil</a> ';
-                echo '<a href="">delete him</a>';
+                echo '<a href="findUser.php?deleteUsername='.$row["username"].'">delete him</a>';
                 echo '<br>';
             }
+        }
+        if(isset($_GET["deleteUsername"])){
+            $userToDelete = $_GET["deleteUsername"];
+            $query = "DELETE FROM users where username ='$userToDelete'";
+            if($conn->query($query)===true){
+                header("Location:findUser.php");
+            }else{
+                echo "non";
+            }
+            
         }
         ?>
       </div>

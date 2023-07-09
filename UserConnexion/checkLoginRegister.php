@@ -35,13 +35,14 @@ function login($username, $password){
     global $conn;
     try {
         // prepare query : security 
-        $query = "SELECT count(*) FROM users where username='$username' and passwd='$password'";
+        $query = "SELECT count(*) as count FROM users where username='$username' and passwd='$password'";
         $result = mysqli_query($conn, $query);
 
         if ($result) {
-            $row_count = mysqli_num_rows($result);
-        
-            if ($row_count > 0) {
+            // $row_count = mysqli_num_rows($result);
+            $row = $result->fetch_assoc();
+            $count = $row["count"];
+            if ($count==1) {
                 $_SESSION['username'] = $username;
                 $q = "SELECT roles FROM users where username='$username'";
                 $res = mysqli_query($conn, $q);
