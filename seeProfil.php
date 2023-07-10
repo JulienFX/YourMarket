@@ -26,7 +26,25 @@
             echo "Family Name : ".$row["familyName"]."<br>";
             echo "Email : ".$row["email"]."<br>";
             echo "Phone : ".$row["phone"]."<br>";
-            
+            if($row["roles"]==0){
+              echo 'Role : Admin<br>';
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=1">Change role to seller</a><br>';
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=2">Change role to buyer</a>';
+            }else if($row["roles"]==1){
+              echo 'Role : Seller<br>';
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=0">Change role to admin</a><br>';
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=2">Change role to buyer</a>';
+            }else{
+              echo "Role : Buyer<br>";
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=0">Change role to admin</a><br>';
+              echo '<a href="seeProfil.php?username='.$user.'&newRole=1">Change role to seller</a>';
+            }
+            if(isset($_GET["newRole"])){
+              $newRole = $_GET["newRole"];
+              $sql="UPDATE users SET roles ='$newRole' where username='$user'";
+              $conn->query($sql);
+              header('Location:seeProfil.php?username='.$user);
+            }
         }
 
         ?>
