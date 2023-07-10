@@ -32,9 +32,10 @@
                         echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src='. $row["link"] . '>';
                         echo '<p>Descriptions : ' . $row["descriptions"] . '</p>';
+                        $categoryName = $row["categories"]==1?"Cakes":"Electronics";
+                        echo '<p>Category :'.$categoryName.' </p>';
                         if($row["sellType"]==1){
                             echo '<p>Price for buy : £' . $row["price"] . '</p>';
-                            echo '<a href="findItems.php?delId='.$row["id"].'">Delete Item</a><br>';
                             
                             
                         }else{
@@ -50,8 +51,11 @@
                                 echo "Remaining time : " . $remainingTime;
                             }
                             echo '<p>Starting price for bids : £' . $row["price"] . '</p>';
-                            echo '<a href="findItems.php?delId='.$row["id"].'">Delete Item</a><br>';
+                            
                         }
+                        $cat = $row["categories"]==1?2:1;
+                        echo '<a href="findItems.php?id='.$row["id"].'&newCategory='.$cat.'">switch category</a><br>';
+                        echo '<a href="findItems.php?delId='.$row["id"].'">Delete Item</a><br>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -59,6 +63,16 @@
                 if(isset($_GET["delId"])){
                     $idToDelete=$_GET["delId"];
                     $query = "DELETE FROM items where id ='$idToDelete'";
+                    if($conn->query($query)===true){
+                        header("Location:findItems.php");
+                    }else{
+                        echo "non";
+                    }
+                }
+                if(isset($_GET["newCategory"]) && isset($_GET["id"])){
+                    $id=$_GET["id"];
+                    $category = $_GET["newCategory"];
+                    $query = "UPDATE items SET categories='$category' where id='$id'";
                     if($conn->query($query)===true){
                         header("Location:findItems.php");
                     }else{
