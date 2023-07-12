@@ -137,14 +137,12 @@
           }
         }
       } else if ($_SESSION['cartId']) {
-        echo "cart";
         $sql = "SELECT * FROM possess JOIN contains ON possess.cartId = contains.cartId WHERE possess.username = '$username'";
 
         $result = $conn->query($sql);
 
         // Display the cart items
         if ($result->num_rows > 0) {
-          echo $result->num_rows;
           while ($row = $result->fetch_assoc()) {
             $quantity = $row["quantity"];
             $cartId = $row["cartId"];
