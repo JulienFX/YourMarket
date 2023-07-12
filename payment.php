@@ -133,7 +133,7 @@
             $stmt->bind_param("ii", $newQuantity, $itemId);
             $stmt->execute();
             $stmt->close();
-           // header('Location: desserts.php');
+            header('Location: desserts.php');
           }
         }
       } else if ($_SESSION['cartId']) {
