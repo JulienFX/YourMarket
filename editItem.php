@@ -64,10 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="price" name="price" value="<?php echo $price; ?>" required><br>
         <?php 
         if ($categories==1){
-          echo 'actual category : Cakes - <a href="editItem.php?id='.$idItem.'&newCategory=2">switch category</a><br>';
+          echo 'Actual category : Cakes - <a href="editItem.php?id='.$idItem.'&newCategory=2">switch category</a><br>';
 
         }else{
-          echo 'actual category : Electronics - <a href="editItem.php?id='.$idItem.'&newCategory=1">switch category</a><br>';
+          echo 'Actual category : Electronics - <a href="editItem.php?id='.$idItem.'&newCategory=1">switch category</a><br>';
         }
         if(isset($_GET["newCategory"])){
           $newCat = $_GET["newCategory"];
@@ -75,15 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $conn->query($sql);
           header('Location:editItem.php?id='.$idItem);
         }
+        if($sellType==2){
+          echo"Sell for auction<br>";
+        }else{
+          echo "Sell for direct buy or negociation<br>";
+        }
         ?>
-        <label for="category">Category:</label>
-        <input type="text" id="category" name="category" value="<?php echo $categories; ?>" required><br>
-
-        <label for="availablr">Available:</label>
-        <input type="text" id="available" name="available" value="<?php echo $available; ?>" required><br>
-
-        <label for="sellType">Sell Type:</label>
-        <input type="text" id="sellType" name="sellType" value="<?php echo $sellType; ?>" required><br>
 
         <button type="submit">Save Changes</button>
       </form>

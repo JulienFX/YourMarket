@@ -50,7 +50,7 @@
                 $currentDatetime = date("Y-m-d H:i:s");
 
                 // Fetch items from the table
-                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link,endDate FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=2 and quantity>0 ";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link,endDate,username FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id inner join sell as s on i.id=s.idItem  where categories=2 and quantity>0 ";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -60,6 +60,7 @@
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src='. $row["link"] . '>';
+                        echo '<p>owner : '.$row["username"].'</p>';
                         echo '<p>Descriptions : ' . $row["descriptions"] . '</p>';
                         if($row["sellType"]==1){
                             echo '<p>Price for buy : £' . $row["price"] . '</p>';
