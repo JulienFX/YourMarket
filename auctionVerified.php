@@ -13,9 +13,22 @@
           <?php include('Constant/navbar.php'); ?>
       </nav>
       <div class="content">
+        <h1>Auction action</h1>
       <?php
         require_once('connexionDB.php');
         global $conn;
+        if (isset($_GET['decline'])) {
+            $itemId = $_GET['decline'];
+
+            // Mise à jour du champ "available" dans la table items
+            $updateItemQuery = "DELETE FROM items WHERE id = $itemId";
+            $conn->query($updateItemQuery);
+
+            // Suppression des offres associées dans la table bids
+            $deleteBidsQuery = "DELETE FROM bids WHERE itemId = $itemId";
+            $conn->query($deleteBidsQuery);
+        }
+
 
         // Requête SQL pour récupérer les items correspondant aux critères spécifiés
         $itemQuery = "SELECT id, nameItem, descriptions, price AS initialPrice, endDate, username AS usernameOwner
@@ -71,10 +84,11 @@
                 if(isset($bidRow['finalPrice']) && isset($buyerRow['username'])){
                     echo '<td>' . $bidRow['finalPrice'] . '</td>';
                     echo '<td>' . $buyerRow['username'] . '</td>';
+                    echo'<td><a href="auctionVerified.php?validate='.$itemRow['id'].'">Validate</a><br><a href="auctionVerified.php?decline='.$itemRow['id'].'">Decline</a></td>';
                 }else{
                     echo "<td>NO</td>";
                     echo "<td>NO</td>";
-                    echo'<td><a href="">refuse and remove the product</a><br><a href="">accept the offer</a></td>';
+                    echo'<td><a href="auctionVerified.php?decline='.$itemRow['id'].'">Decline</a>';
                 }
                 
                 echo '</tr>';
