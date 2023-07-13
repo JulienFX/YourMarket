@@ -15,6 +15,7 @@
       <div class="content">
         <a href="findUser.php">Find users</a>
         <a href="findItems.php">Find items</a>
+        <a href="auctionVerified.php">Find auctions</a>
       </div>
     </div>
   <footer>
