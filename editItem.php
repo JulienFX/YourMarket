@@ -62,7 +62,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label for="price">Price:</label>
         <input type="text" id="price" name="price" value="<?php echo $price; ?>" required><br>
+        <?php 
+        if ($categories==1){
+          echo 'actual category : Cakes - <a href="editItem.php?id='.$idItem.'&newCategory=2">switch category</a><br>';
 
+        }else{
+          echo 'actual category : Electronics - <a href="editItem.php?id='.$idItem.'&newCategory=1">switch category</a><br>';
+        }
+        if(isset($_GET["newCategory"])){
+          $newCat = $_GET["newCategory"];
+          $sql="UPDATE items SET categories ='$newCat' where id='$idItem'";
+          $conn->query($sql);
+          header('Location:editItem.php?id='.$idItem);
+        }
+        ?>
         <label for="category">Category:</label>
         <input type="text" id="category" name="category" value="<?php echo $categories; ?>" required><br>
 
