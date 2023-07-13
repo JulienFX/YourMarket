@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 08 juil. 2023 à 11:04
+-- Généré le : jeu. 13 juil. 2023 à 10:35
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,7 +33,17 @@ CREATE TABLE IF NOT EXISTS `bids` (
   `itemId` int NOT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `bids`
+--
+
+INSERT INTO `bids` (`id`, `itemId`, `price`) VALUES
+(33, 0, 170),
+(34, 33, 4050),
+(35, 35, 100),
+(37, 36, 60);
 
 -- --------------------------------------------------------
 
@@ -49,6 +59,13 @@ CREATE TABLE IF NOT EXISTS `contains` (
   PRIMARY KEY (`cartId`,`itemId`),
   KEY `fk_itemsCart` (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `contains`
+--
+
+INSERT INTO `contains` (`cartId`, `itemId`, `quantity`) VALUES
+(4, 30, 1);
 
 -- --------------------------------------------------------
 
@@ -69,8 +86,12 @@ CREATE TABLE IF NOT EXISTS `have` (
 --
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
-(29, 29),
-(30, 30);
+(30, 30),
+(32, 32),
+(33, 33),
+(34, 34),
+(35, 35),
+(36, 36);
 
 -- --------------------------------------------------------
 
@@ -118,15 +139,19 @@ CREATE TABLE IF NOT EXISTS `items` (
   `available` tinyint(1) NOT NULL DEFAULT '1',
   `endDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
 --
 
 INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `sellType`, `quantity`, `available`, `endDate`) VALUES
-(29, 'oui', 'oui', 60, 2, 2, 6, 1, '2027-01-06 16:30:00'),
-(30, 'non', 'n', 15, 2, 1, 1, 1, '0000-00-00 00:00:00');
+(30, 'Encherie salope', 'ose une peut pd', 30, 0, 2, 1, 1, '0000-00-00 00:00:00'),
+(32, 'Encherie salope', 'ose une peut pd', 30, 0, 2, 1, 1, '2024-05-13 13:30:00'),
+(33, 'osee', 'sss', 60, 2, 2, 3, 1, '2050-02-11 11:00:00'),
+(34, 'LOSEEEEE', 'dzef', 80, 1, 2, 1, 1, '5000-04-06 00:00:00'),
+(35, 'merde', 'merde', 4, 2, 2, 1, 1, '2100-11-11 12:20:00'),
+(36, 'momo', 'mama', 1, 2, 2, 2, 1, '2029-04-18 11:11:00');
 
 -- --------------------------------------------------------
 
@@ -167,6 +192,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `orderId` int NOT NULL AUTO_INCREMENT,
   `itemId` int NOT NULL,
   `quantity` int NOT NULL,
+  `purchaseDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`orderId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -181,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
@@ -217,7 +243,13 @@ INSERT INTO `picturesvideos` (`id`, `link`) VALUES
 (27, 'Photos/Items/motherboard.png'),
 (28, 'Photos/Items/electrician.png'),
 (29, 'Photos/Items/motherboard.png'),
-(30, 'Photos/Items/xbox.png');
+(30, 'Photos/Items/xbox.png'),
+(31, 'Photos/Items/motherboard.png'),
+(32, 'Photos/Items/motherboard.png'),
+(33, 'Photos/Items/electrician.png'),
+(34, 'Photos/Items/xbox.png'),
+(35, 'Photos/Items/FRNG.png'),
+(36, 'Photos/Items/motherboard.png');
 
 -- --------------------------------------------------------
 
@@ -232,6 +264,17 @@ CREATE TABLE IF NOT EXISTS `place` (
   PRIMARY KEY (`bidId`,`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `place`
+--
+
+INSERT INTO `place` (`bidId`, `username`) VALUES
+(33, 'admin'),
+(34, 'admin'),
+(35, 'admin'),
+(36, 'admin'),
+(37, 'admin');
+
 -- --------------------------------------------------------
 
 --
@@ -244,6 +287,13 @@ CREATE TABLE IF NOT EXISTS `possess` (
   `cartId` int NOT NULL,
   PRIMARY KEY (`username`,`cartId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `possess`
+--
+
+INSERT INTO `possess` (`username`, `cartId`) VALUES
+('admin', 4);
 
 -- --------------------------------------------------------
 
@@ -277,8 +327,12 @@ CREATE TABLE IF NOT EXISTS `sell` (
 --
 
 INSERT INTO `sell` (`username`, `idItem`) VALUES
-('j', 29),
-('j', 30);
+('j', 30),
+('admin', 32),
+('admin', 33),
+('admin', 34),
+('admin', 35),
+('admin', 36);
 
 -- --------------------------------------------------------
 
@@ -291,7 +345,17 @@ CREATE TABLE IF NOT EXISTS `shoppingcart` (
   `cartId` int NOT NULL AUTO_INCREMENT,
   `quantity` int NOT NULL,
   PRIMARY KEY (`cartId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `shoppingcart`
+--
+
+INSERT INTO `shoppingcart` (`cartId`, `quantity`) VALUES
+(1, 0),
+(2, 0),
+(3, 0),
+(4, 5);
 
 -- --------------------------------------------------------
 
@@ -317,6 +381,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `firstName`, `familyName`, `email`, `phone`, `passwd`, `roles`, `activated`) VALUES
+('admin', 'king', 'boss', 'admin@gmail.com', '064455667788', 'admin', 0, 1),
+('carlo', 'carlo', 'gonzalez', 'carlo@gmail.com', '08', 'carlo', 1, 0),
 ('j', 'john', 'cena', 'jc@gmail.com', '0690', 'j', 1, 0);
 
 --
