@@ -58,13 +58,13 @@ if ($conn->connect_error) {
 // Retrieve the user's profile data from the database
 session_start();
 $user = $_SESSION['username']; // Assuming you have a user ID to identify the user
-$sql = "SELECT firstName, username, email, phone ,passwd FROM users WHERE username = '$user'";
+$sql = "SELECT * FROM users WHERE username = '$user'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $firstName = $row["firstName"];
-    //$name = $row["name"];
+    $name = $row["familyName"];
     $username = $row["username"];
     $email = $row["email"];
     $phoneNumber = $row["phone"];
@@ -97,7 +97,7 @@ $conn->close();
     }
 
     // Construct update query
-    $sql = "UPDATE users SET firstname='$firstname', email = '$email', username ='$username', phone ='$phoneNumber' , passwd = '$passwd' WHERE username='$user'";
+    $sql = "UPDATE users SET firstname='$firstname', familyName='$name', email = '$email', username ='$username', phone ='$phoneNumber' , passwd = '$passwd' WHERE username='$user'";
 
     // Execute update query
     if ($conn->query($sql) === TRUE) {
@@ -118,7 +118,7 @@ $conn->close();
       <input type="text" id="firstName" name="firstName"  value="<?php echo $firstName; ?>"required>
 
       <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" name="lastName" value="<?php echo $firstName; ?>" required>
+      <input type="text" id="lastName" name="lastName" value="<?php echo $name; ?>" required>
 
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" value="<?php echo $username; ?>" required>
