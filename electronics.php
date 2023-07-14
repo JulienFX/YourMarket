@@ -66,7 +66,7 @@
                             echo '<p>Price for buy : £' . $row["price"] . '</p>';
                             echo '<button class="add-to-cart">Add to Cart</button><br>';
                             echo '<button onclick="openPayment();">Buy Now</button><br>';
-                            echo '<button >Negociate the price</button>';
+                            echo '<a href="#" onclick="negotiatePrice('.$row['id'].', '.$row['price'].');">Negotiate the price</a>';
                         }else{
                             if ($currentDatetime >= $row["endDate"]) {
                                 // Le timer est expiré, effectuer les actions nécessaires
@@ -202,8 +202,31 @@
                         echo "Aucun item trouvé avec l'ID spécifié";
                     }
                     // header("location:electronics.php");
-                } else {
-                    // echo "Les variables itemId et bidValue doivent être spécifiées dans l'URL";
+                } else if (isset($_GET['itemId']) && isset($_GET['negotiatePrice'])){
+                    $itemId = $_GET['itemId'];
+                    $offerAmount = $_GET['negotiatePrice'];
+                    $offerTime = date("Y-m-d H:i:s");
+                    $username = $_SESSION["username"];
+
+                    // Insérer dans la table offers
+                    $insertOfferSql = "INSERT INTO offers (itemId, OfferAmount, offerTime) VALUES ('$itemId', '$offerAmount', '$offerTime')";
+                    if ($conn->query($insertOfferSql) === TRUE) {
+                        $offerId = $conn->insert_id;
+
+                        // Insérer dans la table make
+                        $queryTowardUsername = "SELECT username from sell where idItem='$itemId'";
+                        $result = $conn->query($queryTowardUsername);
+                        $row = $result->fetch_assoc();
+                        $towardUsername = $row["username"];
+                        $makeSql = "INSERT INTO make (offerId, username, towardUsername) VALUES ('$offerId', '$username', '$towardUsername')";
+                        if ($conn->query($makeSql) === TRUE) {
+                            echo "Offre et enregistrement effectués avec succès";
+                        } else {
+                            echo "Erreur lors de l'insertion dans la table make : " . $conn->error;
+                        }
+                    } else {
+                        echo "Erreur lors de l'insertion dans la table offers : " . $conn->error;
+                    }
                 }
                 $conn->close();
                 ?>
@@ -221,6 +244,19 @@
             if (bidValue !== null) {
                 var url = "electronics.php?itemId=" + itemId + "&bidValue=" + encodeURIComponent(bidValue);
                 window.location.href = url;
+            }
+        }
+
+        function negotiatePrice(itemId, maxPrice) {
+            var price = prompt("Enter your offer price (less than " + maxPrice + "):");
+
+            if (price !== null) {
+                if (price >= maxPrice) {
+                    alert("The offer price must be less than the item's price.");
+                } else {
+                    var url = "electronics.php?itemId=" + itemId + "&negotiatePrice=" + encodeURIComponent(price);
+                    window.location.href = url;
+                }
             }
         }
     </script>
