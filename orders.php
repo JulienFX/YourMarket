@@ -4,18 +4,30 @@
 
 <head>
     <style>
-        /* Ajoutez ces règles CSS dans votre balise <style> existante */
+        .container {
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
         .cart-item {
             display: flex;
             align-items: center;
-            margin-bottom: 40px;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
         }
 
-        .cart-item:hover {
+        .cart-item-container {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            flex-grow: 1;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-container:hover {
             background-color: #e9e9e9;
         }
 
@@ -27,10 +39,10 @@
         }
 
         .item-details {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
             flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .item-name {
@@ -47,14 +59,20 @@
             color: #888;
         }
 
-        .banner {
-            background-color: #ddd;
+        .paid-banner {
+            background-color: #5cb85c;
+            color: #fff;
             padding: 5px 10px;
             border-radius: 3px;
             font-size: 12px;
             font-weight: bold;
             display: inline-block;
             margin-bottom: 5px;
+        }
+
+        /* Classe pour les éléments du conteneur */
+        .item-details > span {
+            flex-grow: 1;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
@@ -87,13 +105,15 @@
                     $itemImage = $row["link"];
                     $purchaseDate = $row["purchaseDate"];
                     echo "<div class='cart-item'>";
+                    echo "<div class='cart-item-container'>";
                     echo "<img class='item-image' src='$itemImage' alt='Item Image'>";
                     echo "<div class='item-details'>";
                     echo "<span class='item-name'>$nameItem</span>";
-                    echo "<span class='item-quantity'>Quantity: <input class='quantity-input' type='number' name='' value='$quantity' min='1'></span>";
+                    echo "<span class='item-quantity'>$quantity</span>";
                     echo "<span class='item-date'>$purchaseDate</span>";
                     echo "</div>";
-                    echo "<span class='banner'>New!</span>";
+                    echo "<span class='paid-banner'>Paid</span>";
+                    echo "</div>";
                     echo "</div>";
                 }
             }
