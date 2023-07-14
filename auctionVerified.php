@@ -28,12 +28,35 @@
             $deleteBidsQuery = "DELETE FROM bids WHERE itemId = $itemId";
             $conn->query($deleteBidsQuery);
         }
+        if (isset($_GET['validate'])) {
+            $itemId = $_GET['validate'];
 
+            // Récupérer la quantité initiale de l'item dans la table items
+            $quantityQuery = "SELECT quantity FROM items WHERE id = $itemId";
+            $quantityResult = $conn->query($quantityQuery);
+            $quantityRow = $quantityResult->fetch_assoc();
+            $quantity = $quantityRow['quantity'];
+
+            // Insérer dans la table orders avec l'ID et la quantité correspondants
+            $insertOrderQuery = "INSERT INTO orders (itemId, quantity) VALUES ($itemId, $quantity)";
+            $conn->query($insertOrderQuery);
+
+            // Insérer dans la table hold avec l'ID de l'utilisateur et l'ID de la commande
+            $username = $_SESSION['username'];
+            $orderId = $conn->insert_id; // Récupérer l'ID généré de la commande
+            $insertHoldQuery = "INSERT INTO hold (username, orderId) VALUES ('$username', $orderId)";
+            $conn->query($insertHoldQuery);
+
+            // Décrémenter la quantité dans la table items
+            $decrementQuantityQuery = "UPDATE items SET quantity = quantity - $quantity WHERE id = $itemId";
+            $conn->query($decrementQuantityQuery);
+
+        }
 
         // Requête SQL pour récupérer les items correspondant aux critères spécifiés
         $itemQuery = "SELECT id, nameItem, descriptions, price AS initialPrice, endDate, username AS usernameOwner
                     FROM items as i inner join sell as s on i.id=s.idItem 
-                    WHERE sellType = 2 AND endDate < NOW()
+                    WHERE sellType = 2 AND endDate < NOW() and quantity>0
                     ORDER BY endDate ASC";
 
         $itemResult = $conn->query($itemQuery);

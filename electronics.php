@@ -201,7 +201,7 @@
                     } else {
                         echo "Aucun item trouvé avec l'ID spécifié";
                     }
-                    header("location:electronics.php");
+                    // header("location:electronics.php");
                 } else {
                     // echo "Les variables itemId et bidValue doivent être spécifiées dans l'URL";
                 }

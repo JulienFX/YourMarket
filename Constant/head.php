@@ -31,9 +31,10 @@
         display: block;
     }
   </style>
+  <link rel="shortcut icon" href="../Photos/logo.png" />
 </head>
   <header class="header">
-    <div class="header-title">YourMarket</div>
+    <a href="../index.php"><img src="../Photos/logo.png" height="75"></a>
     <div class="search-bar">
       <!-- Insérez ici le code de votre barre de recherche -->
       <input type="text" placeholder="Search..." />
