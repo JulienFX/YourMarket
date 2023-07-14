@@ -49,7 +49,7 @@
                 require_once('connexionDB.php');
                 global $conn;
                 // Fetch items from the table
-                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=1";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=1 and quantity>0";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
