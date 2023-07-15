@@ -12,6 +12,11 @@
       <li><a href="manageItems.php">Manage product</a></li>
       <?php
     }
+    if(isset($_SESSION['role'])){
+      ?>
+      <li><a href="negotiation.php">See negotiation</a></li>
+      <?php
+    }
     if(isset($_SESSION["role"]) && $_SESSION['role'] ==0 ){ // admin
       ?>
       <li><a href="administration.php">Administration</a></li>

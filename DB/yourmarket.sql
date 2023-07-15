@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 14 juil. 2023 à 13:17
+-- Généré le : sam. 15 juil. 2023 à 21:42
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,7 +33,14 @@ CREATE TABLE IF NOT EXISTS `bids` (
   `itemId` int NOT NULL,
   `price` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `bids`
+--
+
+INSERT INTO `bids` (`id`, `itemId`, `price`) VALUES
+(39, 48, 7);
 
 -- --------------------------------------------------------
 
@@ -63,6 +70,14 @@ CREATE TABLE IF NOT EXISTS `have` (
   PRIMARY KEY (`idLink`,`idItem`),
   KEY `fk_idLinkForItem` (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `have`
+--
+
+INSERT INTO `have` (`idLink`, `idItem`) VALUES
+(48, 48),
+(49, 49);
 
 -- --------------------------------------------------------
 
@@ -110,7 +125,15 @@ CREATE TABLE IF NOT EXISTS `items` (
   `available` tinyint(1) NOT NULL DEFAULT '1',
   `endDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `items`
+--
+
+INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `sellType`, `quantity`, `available`, `endDate`) VALUES
+(48, 'auctionerie ', 'khalass', 6, 2, 2, 2, 1, '2023-07-15 22:00:00'),
+(49, 'negociation', 'nego', 40, 2, 1, 3, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -126,6 +149,17 @@ CREATE TABLE IF NOT EXISTS `make` (
   PRIMARY KEY (`username`,`offerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `make`
+--
+
+INSERT INTO `make` (`username`, `offerId`, `towardUsername`) VALUES
+('j', 4, 'carlo'),
+('j', 5, 'carlo'),
+('j', 6, 'carlo'),
+('j', 7, 'carlo'),
+('j', 8, 'carlo');
+
 -- --------------------------------------------------------
 
 --
@@ -140,7 +174,18 @@ CREATE TABLE IF NOT EXISTS `offers` (
   `offerTime` datetime NOT NULL,
   `validate` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`offerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `offers`
+--
+
+INSERT INTO `offers` (`offerId`, `itemId`, `offerAmount`, `offerTime`, `validate`) VALUES
+(4, 49, 20, '2023-07-15 20:44:18', 0),
+(5, 49, 20, '2023-07-15 21:40:49', 0),
+(6, 49, 20, '2023-07-15 21:41:00', 0),
+(7, 49, 20, '2023-07-15 21:41:17', 0),
+(8, 49, 20, '2023-07-15 21:41:21', 0);
 
 -- --------------------------------------------------------
 
@@ -168,7 +213,15 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `picturesvideos`
+--
+
+INSERT INTO `picturesvideos` (`id`, `link`) VALUES
+(48, 'Photos/Items/FRNG.png'),
+(49, 'Photos/Items/electrician.png');
 
 -- --------------------------------------------------------
 
@@ -183,6 +236,13 @@ CREATE TABLE IF NOT EXISTS `place` (
   PRIMARY KEY (`bidId`,`username`),
   KEY `fk_users_place` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `place`
+--
+
+INSERT INTO `place` (`bidId`, `username`) VALUES
+(39, 'carlo');
 
 -- --------------------------------------------------------
 
@@ -223,6 +283,14 @@ CREATE TABLE IF NOT EXISTS `sell` (
   PRIMARY KEY (`username`,`idItem`),
   KEY `fk_sell_item` (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `sell`
+--
+
+INSERT INTO `sell` (`username`, `idItem`) VALUES
+('j', 48),
+('carlo', 49);
 
 -- --------------------------------------------------------
 
@@ -282,12 +350,6 @@ ALTER TABLE `contains`
 ALTER TABLE `have`
   ADD CONSTRAINT `fk_idItemsPics` FOREIGN KEY (`idItem`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_idLinkForItem` FOREIGN KEY (`idItem`) REFERENCES `items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `picturesvideos`
---
-ALTER TABLE `picturesvideos`
-  ADD CONSTRAINT `fk_idLink` FOREIGN KEY (`id`) REFERENCES `have` (`idLink`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `place`
