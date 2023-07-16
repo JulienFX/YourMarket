@@ -65,7 +65,8 @@
         .subtotal-table {
             width: 30%;
             margin-left: auto;
-            margin-right: auto; /* Center the table */
+            margin-right: auto;
+            /* Center the table */
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -73,27 +74,32 @@
         .subtotal-table th,
         .subtotal-table td {
             padding: 5px;
-            text-align: center; /* Center the text */
+            text-align: center;
+            /* Center the text */
         }
 
         .subtotal-link {
             display: block;
             width: fit-content;
-            margin: 20px auto; /* Center the button */
+            margin: 20px auto;
+            /* Center the button */
             padding: 10px 20px;
             text-align: center;
             background-color: #007bff;
             color: #fff;
             text-decoration: none;
-            border-radius: 10px; /* Increase the border radius */
+            border-radius: 10px;
+            /* Increase the border radius */
         }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 
 <body>
+
     <head>
         <?php
+        ob_start();
         session_start();
         include('Constant/head.php');
         ?>
@@ -104,7 +110,6 @@
         </nav>
         <div class="content">
             <?php
-            ob_start();
             if (isset($_SESSION['username'])) {
                 require_once('connexionDB.php');
                 global $conn;
