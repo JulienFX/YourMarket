@@ -43,9 +43,17 @@
             $insertHoldQuery = "INSERT INTO hold (orderId, username) VALUES ($orderId, '$proposedBy')";
             $conn->query($insertHoldQuery);
 
+            $decreaseItem = "UPDATE items set quantity=0 where id=$itemId";
+            $conn->query($decreaseItem);
+
             // Redirect back to the original page to display the updated information
             header("Location: " . $_SERVER['PHP_SELF']);
             exit();
+        }
+        if(isset($_GET["offerIdDecline"])){
+            $offerId= $_GET["offerIdDecline"];
+            $sql = "UPDATE offers set validate=1 where offerId=$offerId";
+            $conn->query($sql);
         }
 
         // Récupérer les offres en attente pour l'utilisateur connecté
@@ -95,7 +103,7 @@
         if ($proposedOffersResult->num_rows > 0) {
             echo "<h3>Proposed Offers:</h3>";
             echo "<table>";
-            echo "<tr><th>Item Name</th><th>Offered Price</th><th>Initial Price</th><th>Item Owner</th><th>Proposed by</th><th>Status</th><th>Action</th></tr>";
+            echo "<tr><th>Item Name</th><th>Offered Price</th><th>Initial Price</th><th>Item Owner</th><th>Proposed by</th><th>Status</th><th colspan=3>Action</th></tr>";
 
             while ($row = $proposedOffersResult->fetch_assoc()) {
                 echo "<tr>";
@@ -110,6 +118,9 @@
                 
                 echo '<td>
                     <a href="' . $_SERVER['PHP_SELF'] . '?itemId='.$row["itemId"].'&quantity='.$row["quantity"].'&owner='.$row["itemOwner"].'&proposedBy='.$row["proposedBy"].'&offerId='.$row["offerId"].'">Accept</a>
+                    </td>';
+                echo '<td>
+                    <a href="' . $_SERVER['PHP_SELF'] . '?offerIdDecline='.$row["offerId"].'">Decline</a>
                     </td>';
                 echo "</tr>";
                 
