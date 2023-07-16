@@ -7,7 +7,6 @@
         body {
             background-color: #ffffff;
         }
-
         table {
             width: 100%;
             background-color: #fff;
@@ -15,22 +14,18 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         th,
         td {
             padding: 5px;
             text-align: left;
             border-bottom: 1px solid #ccc;
         }
-
         th {
             background-color: #ccc;
         }
-
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-
         .quantity {
             display: inline-block;
             padding: 5px;
@@ -39,29 +34,24 @@
             text-align: center;
             margin: 0 auto;
         }
-
         .delete-link {
             display: inline-block;
             vertical-align: middle;
             margin-right: 5px;
         }
-
         .item-image {
             vertical-align: middle;
             max-width: 100px;
             max-height: 100px;
         }
-
         .price {
             text-align: center;
             padding: 5px;
             width: 80px;
         }
-
         .price strong {
             font-weight: bold;
         }
-
         .subtotal-table {
             width: 30%;
             margin-left: auto;
@@ -70,14 +60,12 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         .subtotal-table th,
         .subtotal-table td {
             padding: 5px;
             text-align: center;
             /* Center the text */
         }
-
         .subtotal-link {
             display: block;
             width: fit-content;

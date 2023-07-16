@@ -79,6 +79,7 @@
 <body>
     <head>
         <?php
+        ob_start();
         session_start();
         include('Constant/head.php'); ?>
     </head>
@@ -228,10 +229,14 @@
                             }
                         }
                         header('Location: desserts.php');
+                        ob_end_clean();
+                        exit;
                     }
                 } else {
                     if (isset($_GET["addTocart"])) {
                         header('Location: UserConnexion/formLoginRegister.php');
+                        ob_end_clean();
+                        exit;
                     }
                 }
                 // Close the database connection
