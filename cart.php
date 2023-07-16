@@ -5,7 +5,7 @@
     <title>Your Cart</title>
     <style>
         body {
-            background-color: #f2f2f2;
+            background-color: #ffffff;
         }
 
         table {
@@ -189,7 +189,7 @@
                     echo "</tr>";
                     echo "</table>";
 
-                    echo "<a class='subtotal-link' href='payment.php?cartId=0'>Checkout</a>";
+                    echo "<a class='subtotal-link' href='payment.php?cartId=$cartId'>Checkout</a>";
                 }
 
                 if (isset($_GET["delete"])) {

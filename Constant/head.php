@@ -49,7 +49,8 @@
         <div class="profile-dropdown">
             <a href="profil.php">Profil</a>
             <br>
-            <a href="disconnect.php">Logout</a>
+            <a href="disconnect.php">Logout</a><br>
+            <a href="orders.php">Your Orders</a>
         </div>
       </div>
       <?php
