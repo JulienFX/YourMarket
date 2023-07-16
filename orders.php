@@ -93,7 +93,7 @@
         }
 
         /* Classe pour les éléments du conteneur */
-        .item-details > span {
+        .item-details>span {
             flex-grow: 1;
         }
     </style>
@@ -111,41 +111,43 @@
         </nav>
         <div class="content">
             <div class="container">
-                <div class="order-header">Order Details</div>
-                <div class="order-details">
-                    <?php
-                    require_once('connexionDB.php');
-                    global $conn;
-                    // Fetch items from the table
-                    $username = $_SESSION["username"];
-                    $sql = "SELECT o.purchaseDate, i.nameItem, o.quantity, p.link FROM orders o JOIN items i ON o.itemId = i.Id JOIN hold h ON h.orderId = o.orderId JOIN picturesvideos p ON o.itemId = p.id WHERE h.username = '$username' ORDER BY o.purchaseDate DESC";
+                <?php
+                require_once('connexionDB.php');
+                global $conn;
+                // Fetch items from the table
+                $username = $_SESSION["username"];
+                $sql = "SELECT o.purchaseDate, i.nameItem, o.quantity, p.link FROM orders o JOIN items i ON o.itemId = i.Id JOIN hold h ON h.orderId = o.orderId JOIN picturesvideos p ON o.itemId = p.id WHERE h.username = '$username' ORDER BY o.purchaseDate DESC";
 
-                    $result = $conn->query($sql);
+                $result = $conn->query($sql);
 
-                    // Display the cart items
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            $nameItem = $row["nameItem"];
-                            $quantity = $row["quantity"];
-                            $itemImage = $row["link"];
-                            $purchaseDate = $row["purchaseDate"];
-                            echo "<div class='cart-item'>";
-                            echo "<div class='cart-item-container'>";
-                            echo "<img class='item-image' src='$itemImage' alt='Item Image'>";
-                            echo "<div class='item-details'>";
-                            echo "<span class='item-name'>$nameItem</span>";
-                            echo "<span class='item-quantity'>$quantity</span>";
-                            echo "<span class='item-date'>$purchaseDate</span>";
-                            echo "</div>";
-                            echo "<span class='paid-banner'>Paid</span>";
-                            echo "</div>";
-                            echo "</div>";
-                        }
+                // Display the cart items or empty message
+                if ($result->num_rows > 0) {
+                    echo "<div class='order-header'>Order Details</div>";
+                    echo "<div class='order-details'>";
+                    while ($row = $result->fetch_assoc()) {
+                        $nameItem = $row["nameItem"];
+                        $quantity = $row["quantity"];
+                        $itemImage = $row["link"];
+                        $purchaseDate = $row["purchaseDate"];
+                        echo "<div class='cart-item'>";
+                        echo "<div class='cart-item-container'>";
+                        echo "<img class='item-image' src='$itemImage' alt='Item Image'>";
+                        echo "<div class='item-details'>";
+                        echo "<span class='item-name'>$nameItem</span>";
+                        echo "<span class='item-quantity'>$quantity</span>";
+                        echo "<span class='item-date'>$purchaseDate</span>";
+                        echo "</div>";
+                        echo "<span class='paid-banner'>Paid</span>";
+                        echo "</div>";
+                        echo "</div>";
                     }
-                    ?>
-                </div>
+                } else {
+                    echo "<p>Your orders are empty.</p>";
+                }
+                ?>
             </div>
         </div>
+    </div>
     </div>
     <footer>
         <?php
