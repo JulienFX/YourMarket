@@ -1,67 +1,94 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Profile Management</title>
   <style>
-    .container {
-  width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+    }
 
-h1 {
-  text-align: center;
-}
+    .page {
+      max-width: 500px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-label {
-  display: block;
-  margin-top: 10px;
-}
+    .page h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-input {
-  width: 100%;
-  padding: 5px;
-  margin-top: 5px;
-}
+    .form-group {
+      margin-bottom: 15px;
+    }
 
-button {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
-button:hover {
-  background-color: #45a049;
-}
-</style>
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .form-group .name-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-group .name-group input {
+      width: calc(50% - 5px);
+    }
+
+    .form-group button {
+      display: block;
+      width: 120px;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-left: 0;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
+
 <body>
-<head>
-<?php
-$servername = "localhost"; // adress server mysql
-$usernameServer = "root"; // username mysql
-$passwordServer = ""; // passsword mysql
-$dbname = "yourmarket"; // db name
+  <?php
+  $servername = "localhost"; // adresse du serveur MySQL
+  $usernameServer = "root"; // nom d'utilisateur MySQL
+  $passwordServer = ""; // mot de passe MySQL
+  $dbname = "yourmarket"; // nom de la base de données
+  
+  // Créer une nouvelle connexion
+  $conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
 
-    // Create a new connection
-$conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
-
-// Check the connection
-if ($conn->connect_error) {
+  // Vérifier la connexion
+  if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
+  }
 
-// Retrieve the user's profile data from the database
-session_start();
-$user = $_SESSION['username']; // Assuming you have a user ID to identify the user
-$sql = "SELECT * FROM users WHERE username = '$user'";
-$result = $conn->query($sql);
+  // Récupérer les données de profil de l'utilisateur depuis la base de données
+  session_start();
+  $user = $_SESSION['username']; // Supposons que vous ayez un identifiant utilisateur pour identifier l'utilisateur
+  $sql = "SELECT * FROM users WHERE username = '$user'";
+  $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+  if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $firstName = $row["firstName"];
     $name = $row["familyName"];
@@ -69,71 +96,94 @@ if ($result->num_rows > 0) {
     $email = $row["email"];
     $phoneNumber = $row["phone"];
     $passwd = $row["passwd"];
-} else {
+  } else {
     echo "No user found with the provided ID.";
-}
+  }
 
-$conn->close();
-?>
- <?php
+  $conn->close();
+  ?>
+  <?php
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Retrieve form data
+    // Récupérer les données du formulaire
+    $email = $_POST['email'];
     $firstname = $_POST['firstName'];
     $name = $_POST['lastName'];
-    $email = $_POST['email'];
-    $username =$_POST['username'];
+    $username = $_POST['username'];
     $phoneNumber = $_POST['phone'];
     $passwd = $_POST['password'];
 
-    $servername = "localhost"; // adress server mysql
-    $usernameServer = "root"; // username mysql
-    $passwordServer = ""; // passsword mysql
-    $dbname = "yourmarket"; // db name
-
-    // Create a new connection
+    $servername = "localhost"; // adresse du serveur MySQL
+    $usernameServer = "root"; // nom d'utilisateur MySQL
+    $passwordServer = ""; // mot de passe MySQL
+    $dbname = "yourmarket"; // nom de la base de données
+  
+    // Créer une nouvelle connexion
     $conn = new mysqli($servername, $usernameServer, $passwordServer, $dbname);
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }
 
-    // Construct update query
-    $sql = "UPDATE users SET firstname='$firstname', familyName='$name', email = '$email', username ='$username', phone ='$phoneNumber' , passwd = '$passwd' WHERE username='$user'";
+    // Construire la requête de mise à jour
+    $sql = "UPDATE users SET email='$email', firstname='$firstname', familyName='$name', username ='$username', phone ='$phoneNumber' , passwd = '$passwd' WHERE username='$user'";
 
-    // Execute update query
+    // Exécuter la requête de mise à jour
     if ($conn->query($sql) === TRUE) {
-     // echo "Record updated successfully";
+      // echo "Record updated successfully";
     } else {
       echo "Error updating record: " . $conn->error;
     }
     $_SESSION['username'] = $username;
-    // Close the database connection
+    // Fermer la connexion à la base de données
     $conn->close();
     header('Location: profil.php');
   }
- ?>
-  <div class="container">
-    <h1>Profile Management</h1>
+  ?>
+
+  <head>
+    <?php include('Constant/head.php'); ?>
+  </head>
+
+  <div class="page">
+    <h1>Account Information</h1>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-      <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" name="firstName"  value="<?php echo $firstName; ?>"required>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
+      </div>
 
-      <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" name="lastName" value="<?php echo $name; ?>" required>
+      <div class="form-group name-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" value="<?php echo $firstName; ?>" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value="<?php echo $name; ?>" required>
+      </div>
 
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" value="<?php echo $username; ?>" required>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="<?php echo $username; ?>" required>
+      </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<?php echo $email; ?>" required>
+      <div class="form-group">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" value="<?php echo $phoneNumber; ?>" required>
+      </div>
 
-      <label for="password">Password:</label>
-      <input type="text" id="password" name="password" value="<?php echo $passwd; ?>" required>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" value="<?php echo $passwd; ?>" required>
+      </div>
 
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" value="<?php echo $phoneNumber; ?>" required>
-
-      <button type="submit">Save Changes</button>
+      <div class="form-group">
+        <button type="submit">Save Changes</button>
+      </div>
     </form>
   </div>
+  <footer>
+    <?php
+    include('Constant/footer.php');
+    ?>
+  </footer>
+
 </body>
+
 </html>
