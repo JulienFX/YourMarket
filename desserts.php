@@ -4,38 +4,82 @@
 <head>
     <title>Available Items</title>
     <style>
-        .column {
-            float: left;
-            width: 33.33%;
-            padding: 10px;
-            box-sizing: border-box;
-        }
+    body {
+        font-smooth: antialiased;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
+    .item {
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        font-family: "Arial", sans-serif;
+    }
 
-        .item {
-            background-color: #f2f2f2;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+    .item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .item img {
-            width: 150px;
-            height: 150px;
-            margin-bottom: 10px;
-        }
+    .item h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .item p {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .item p.price {
+        font-weight: bold;
+    }
+
+    .item img {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .item a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .item a:hover {
+        background-color: #45a049;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .column {
+        flex: 0 0 33.33%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 
 <body>
-
     <head>
         <?php
+        ob_start();
         session_start();
         include('Constant/head.php'); ?>
     </head>
@@ -49,7 +93,7 @@
                 require_once('connexionDB.php');
                 global $conn;
                 // Fetch items from the table
-                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=1";
+                $sql = "SELECT i.id,nameItem,descriptions,price,categories,quantity,sellType,idLink,link FROM items as i inner join have as h on i.id = h.idItem inner join picturesvideos as pv on h.idLink=pv.id where categories=1 and quantity>0";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
@@ -60,7 +104,7 @@
                         echo '<h2>' . $row["nameItem"] . '</h2>';
                         echo '<img src=' . $row["link"] . '>';
                         echo '<p>' . $row["descriptions"] . '</p>';
-                        echo '<p>£' . $row["price"] . '</p>';
+                        echo '<p class="price">£' . $row["price"] . '</p>';
                         echo '<p>Quantity Available: ' . $row["quantity"] . '</p>';
                         echo '<a href="desserts.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
                         //echo '<button class="add-to-cart">Add to Cart</button><br><br>';
@@ -185,10 +229,14 @@
                             }
                         }
                         header('Location: desserts.php');
+                        ob_end_clean();
+                        exit;
                     }
                 } else {
                     if (isset($_GET["addTocart"])) {
                         header('Location: UserConnexion/formLoginRegister.php');
+                        ob_end_clean();
+                        exit;
                     }
                 }
                 // Close the database connection
