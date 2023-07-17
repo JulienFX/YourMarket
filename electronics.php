@@ -233,6 +233,11 @@
             </div>
         </div>
     </div>
+    <footer>
+        <?php
+        include('Constant/footer.php');
+        ?>
+    </footer>
     <script>
         function openPayment() {
             window.open("payment.php", "_blank");

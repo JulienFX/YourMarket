@@ -196,7 +196,6 @@
                                                     $quantity = $row['quantity'] + 1;
                                                     $sql = "UPDATE shoppingcart SET quantity = $quantity WHERE cartId = '$cartId'";
                                                     if ($conn->query($sql) === TRUE) {
-                                                        //echo "Quantity updated successfully.";
                                                     }
                                                 }
                                             }
@@ -218,7 +217,6 @@
                                                         $quantity = $row['quantity'] + 1;
                                                         $sql = "UPDATE shoppingcart SET quantity = $quantity WHERE cartId = '$cartId'";
                                                         if ($conn->query($sql) === TRUE) {
-                                                           // echo "Quantity updated successfully.";
                                                         }
                                                     }
                                                 }
