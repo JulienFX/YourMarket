@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 15 juil. 2023 à 21:42
+-- Généré le : lun. 17 juil. 2023 à 11:40
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS `have` (
 
 INSERT INTO `have` (`idLink`, `idItem`) VALUES
 (48, 48),
-(49, 49);
+(49, 49),
+(50, 50);
 
 -- --------------------------------------------------------
 
@@ -107,6 +108,17 @@ CREATE TABLE IF NOT EXISTS `hold` (
   PRIMARY KEY (`orderId`,`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `hold`
+--
+
+INSERT INTO `hold` (`orderId`, `username`) VALUES
+(0, 'carlo'),
+(2, 'carlo'),
+(3, 'j'),
+(4, 'j'),
+(5, 'carlo');
+
 -- --------------------------------------------------------
 
 --
@@ -125,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `available` tinyint(1) NOT NULL DEFAULT '1',
   `endDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `items`
@@ -133,7 +145,8 @@ CREATE TABLE IF NOT EXISTS `items` (
 
 INSERT INTO `items` (`id`, `nameItem`, `descriptions`, `price`, `categories`, `sellType`, `quantity`, `available`, `endDate`) VALUES
 (48, 'auctionerie ', 'khalass', 6, 2, 2, 2, 1, '2023-07-15 22:00:00'),
-(49, 'negociation', 'nego', 40, 2, 1, 3, 1, '0000-00-00 00:00:00');
+(49, 'negociation', 'nego', 40, 2, 1, 0, 1, '0000-00-00 00:00:00'),
+(50, 'mario kart', 'lol', 50, 2, 1, 6, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -154,11 +167,11 @@ CREATE TABLE IF NOT EXISTS `make` (
 --
 
 INSERT INTO `make` (`username`, `offerId`, `towardUsername`) VALUES
-('j', 4, 'carlo'),
-('j', 5, 'carlo'),
-('j', 6, 'carlo'),
-('j', 7, 'carlo'),
-('j', 8, 'carlo');
+('carlo', 9, 'j'),
+('carlo', 12, 'carlo'),
+('carlo', 13, 'j'),
+('j', 10, 'carlo'),
+('j', 11, 'carlo');
 
 -- --------------------------------------------------------
 
@@ -174,18 +187,18 @@ CREATE TABLE IF NOT EXISTS `offers` (
   `offerTime` datetime NOT NULL,
   `validate` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`offerId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `offers`
 --
 
 INSERT INTO `offers` (`offerId`, `itemId`, `offerAmount`, `offerTime`, `validate`) VALUES
-(4, 49, 20, '2023-07-15 20:44:18', 0),
-(5, 49, 20, '2023-07-15 21:40:49', 0),
-(6, 49, 20, '2023-07-15 21:41:00', 0),
-(7, 49, 20, '2023-07-15 21:41:17', 0),
-(8, 49, 20, '2023-07-15 21:41:21', 0);
+(9, 50, 1, '2023-07-15 21:47:12', 2),
+(10, 49, 20, '2023-07-16 12:55:09', 2),
+(11, 49, 0, '2023-07-16 13:06:55', 2),
+(12, 49, 10, '2023-07-16 13:08:49', 2),
+(13, 50, 0, '2023-07-16 13:14:51', 1);
 
 -- --------------------------------------------------------
 
@@ -200,7 +213,17 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `quantity` int NOT NULL,
   `purchaseDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`orderId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `orders`
+--
+
+INSERT INTO `orders` (`orderId`, `itemId`, `quantity`, `purchaseDate`) VALUES
+(2, 50, 6, '2023-07-16 12:02:31'),
+(3, 49, 3, '2023-07-16 14:04:32'),
+(4, 49, 3, '2023-07-16 14:07:33'),
+(5, 49, 3, '2023-07-16 14:08:55');
 
 -- --------------------------------------------------------
 
@@ -213,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `link` varchar(500) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `picturesvideos`
@@ -221,7 +244,8 @@ CREATE TABLE IF NOT EXISTS `picturesvideos` (
 
 INSERT INTO `picturesvideos` (`id`, `link`) VALUES
 (48, 'Photos/Items/FRNG.png'),
-(49, 'Photos/Items/electrician.png');
+(49, 'Photos/Items/electrician.png'),
+(50, 'Photos/Items/electrician.png');
 
 -- --------------------------------------------------------
 
@@ -290,7 +314,8 @@ CREATE TABLE IF NOT EXISTS `sell` (
 
 INSERT INTO `sell` (`username`, `idItem`) VALUES
 ('j', 48),
-('carlo', 49);
+('carlo', 49),
+('j', 50);
 
 -- --------------------------------------------------------
 
