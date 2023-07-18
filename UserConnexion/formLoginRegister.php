@@ -1,8 +1,89 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Login page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="tel"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            width: 100%;
+            padding: 10px 20px;
+            margin-top: 15px;
+            background-color: #FF9900;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #FFB84D;
+        }
+
+        button[type="submit"]:focus,
+        button[type="button"]:focus {
+            outline: none;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #0066c0;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
     <script>
         function openRegistrationForm() {
             document.getElementById("registrationForm").style.display = "block";

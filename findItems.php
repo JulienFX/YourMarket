@@ -2,6 +2,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.column {
+  width: 45%;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.item img {
+  height:250px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+    </style>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>

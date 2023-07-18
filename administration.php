@@ -1,6 +1,31 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
 <html>
+  <style>
+    .content a {
+  display: inline-block;
+  margin: 10px;
+  padding: 12px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.content a:hover {
+  background-color: #45a049;
+}
+
+/* Center the content */
+.content {
+  text-align: center;
+}
+  </style>
 <head>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
