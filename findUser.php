@@ -49,6 +49,7 @@
           <?php include('Constant/navbar.php'); ?>
       </nav>
       <div class="content">
+        <h1>Users</h1>
         <?php
         require_once("connexionDB.php");
         global $conn;

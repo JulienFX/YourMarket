@@ -2,6 +2,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #f5f5f5;
+    }
+
+  </style>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>

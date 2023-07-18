@@ -38,6 +38,7 @@
           <?php include('Constant/navbar.php'); ?>
       </nav>
       <div class="content">
+        <h1>Administration</h1>
         <a href="findUser.php">Find users</a>
         <a href="findItems.php">Find items</a>
         <a href="auctionVerified.php">Find auctions</a>
