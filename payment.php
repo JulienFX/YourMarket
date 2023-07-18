@@ -110,27 +110,27 @@
     <div class="form">
       <h2>Customer Information</h2>
       <form id="customerForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <input type="text" name="namea" placeholder="Name">
-        <input type="text" name="surname" placeholder="Surname">
-        <input type="text" name="address1" placeholder="Address Line 1">
-        <input type="text" name="address2" placeholder="Address Line 2">
-        <input type="text" name="city" placeholder="City">
-        <input type="text" name="postalCode" placeholder="Postal code">
-        <input type="text" name="country" placeholder="Country">
-        <input type="tel" name="phone" placeholder="Telephone number">
+        <input type="text" name="namea" placeholder="Name" required>
+        <input type="text" name="surname" placeholder="Surname" required>
+        <input type="text" name="address1" placeholder="Address Line 1"required>
+        <input type="text" name="address2" placeholder="Address Line 2"required>
+        <input type="text" name="city" placeholder="City"required>
+        <input type="text" name="postalCode" placeholder="Postal code"required>
+        <input type="text" name="country" placeholder="Country"required>
+        <input type="tel" name="phone" placeholder="Telephone number"required>
       </form>
     </div>
     <div class="payment">
       <h2>Payment Information</h2>
       <form id="paymentForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-        <input type="text" name="nameOnCard" placeholder="Name on Card">
-        <input type="text" name="cardNumber" placeholder="Card Number">
+        <input type="text" name="nameOnCard" placeholder="Name on Card"required>
+        <input type="text" name="cardNumber" placeholder="Card Number"required>
         <div class="flex-container">
           <div>
-            <input type="text" name="expirationDate" placeholder="Expiration Date">
+            <input type="text" name="expirationDate" placeholder="Expiration Date"required>
           </div>
           <div>
-            <input type="text" name="securityCode" placeholder="Security Code">
+            <input type="text" name="securityCode" placeholder="Security Code"required>
           </div>
         </div>
         <button type="submit">SUBMIT PAYMENT</button>
