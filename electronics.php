@@ -108,7 +108,8 @@
                         echo '<p>owner : '.$row["username"].'</p>';
                         echo '<p>Descriptions : ' . $row["descriptions"] . '</p>';
                         if($row["sellType"]==1){
-                            echo '<p>Price for buy : £' . $row["price"] . '</p>';
+                            echo '<p>' . $row["price"] . '£</p>';
+                            echo '<p>Quantity: ' . $row["quantity"] . '</p>';
                             echo '<a href="electronics.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
                             echo '<a href="payment.php?buy=' . $row['id'] . '" >Buy Now </a><br><br>';
                             echo '<a href="#" onclick="negotiatePrice('.$row['id'].', '.$row['price'].');">Negotiate the price</a>';

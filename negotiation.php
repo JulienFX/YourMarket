@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php         ob_start();
+session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +48,7 @@
             $conn->query($decreaseItem);
 
             // Redirect back to the original page to display the updated information
+            ob_end_clean();
             header("Location: " . $_SERVER['PHP_SELF']);
             exit();
         }

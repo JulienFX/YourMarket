@@ -104,7 +104,7 @@
 
                 $username = $_SESSION['username'];
 
-                $sql = "SELECT * FROM possess JOIN contains ON possess.cartId = contains.cartId JOIN picturesvideos ON contains.itemId = picturesvideos.id WHERE possess.username = '$username'";
+                $sql = "SELECT picturesvideos.link, contains.itemId, items.nameItem,possess.cartId, contains.quantity FROM possess JOIN contains ON possess.cartId = contains.cartId JOIN picturesvideos ON contains.itemId = picturesvideos.id JOIN items ON contains.itemId = items.id WHERE possess.username = '$username'";
 
                 $result = $conn->query($sql);
 
@@ -129,6 +129,7 @@
                         $quantity = $row["quantity"];
                         $cartId = $row["cartId"];
                         $itemId = $row["itemId"];
+                        $nameitem = $row["nameItem"];
 
                         $sql = "SELECT price, quantity FROM items WHERE id = '$itemId'";
                         $res = $conn->query($sql);
