@@ -7,25 +7,30 @@
         body {
             background-color: #ffffff;
         }
+
         table {
             width: 100%;
             background-color: #fff;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border-collapse: collapse;
             border-radius: 4px;
         }
+
         th,
         td {
-            padding: 5px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ccc;
         }
+
         th {
             background-color: #ccc;
         }
+
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
         .quantity {
             display: inline-block;
             padding: 5px;
@@ -34,38 +39,52 @@
             text-align: center;
             margin: 0 auto;
         }
+
         .delete-link {
             display: inline-block;
             vertical-align: middle;
             margin-right: 5px;
+            transition: transform 0.2s; /* Animation de survol */
         }
+
+        .delete-link:hover {
+            transform: scale(1.2); /* Animation de survol */
+        }
+
         .item-image {
             vertical-align: middle;
-            max-width: 100px;
-            max-height: 100px;
+            width: 80px;
+            height: 80px;
+            object-fit: cover; /* Ajuster la taille de l'image */
         }
+
         .price {
             text-align: center;
             padding: 5px;
             width: 80px;
         }
+
         .price strong {
             font-weight: bold;
         }
+
         .subtotal-table {
             width: 30%;
             margin-left: auto;
             margin-right: auto;
             /* Center the table */
-            border: 1px solid #ccc;
+            border: none; /* Supprimer les bordures */
             border-radius: 4px;
         }
+
         .subtotal-table th,
         .subtotal-table td {
             padding: 5px;
             text-align: center;
             /* Center the text */
+            border: none; /* Supprimer les bordures */
         }
+
         .subtotal-link {
             display: block;
             width: fit-content;
@@ -78,13 +97,27 @@
             text-decoration: none;
             border-radius: 10px;
             /* Increase the border radius */
+            transition: background-color 0.2s; /* Animation de survol */
+        }
+
+        .subtotal-link:hover {
+            background-color: #0056b3; /* Animation de survol */
+        }
+
+        /* Ajouter un espacement à droite du nameItem */
+        .item-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .item-info .name {
+            margin-left: 10px;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 
 <body>
-
     <head>
         <?php
         ob_start();
@@ -121,7 +154,6 @@
                         $itemId = $row["itemId"];
                         $sql = "DELETE FROM contains WHERE itemId NOT IN (SELECT id FROM items)";
                         if ($conn->query($sql) === TRUE) {
-
                         }
 
                         $row_count++;
@@ -142,7 +174,6 @@
                                     $quantity = $itemQuantity;
                                     $sql = "UPDATE contains SET quantity = $quantity WHERE cartId = '$cartId' AND itemId = '$itemId'";
                                     if ($conn->query($sql) === TRUE) {
-
                                     }
                                 }
                                 $price = $price * $quantity;
@@ -151,10 +182,13 @@
 
                         echo "<tr>";
                         echo "<td>";
+                        echo "<div class='item-info'>";
                         echo "<a class='delete-link' href='cart.php?delete=$itemId'>";
                         echo "<img src='Photos/delete-icon.png' alt='Delete Icon'>";
                         echo "</a>";
                         echo "<img class='item-image' src='$itemImage' alt='Item Image'>";
+                        echo "<div class='name'>$nameitem</div>";
+                        echo "</div>";
                         echo "</td>";
                         echo "<td class='price'><strong>$price £</strong></td>";
                         echo "<td><div class='quantity'>$quantity</div></td>";
