@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Available Items</title>
-    <style>
+<style>
     body {
         font-smooth: antialiased;
         -webkit-font-smoothing: antialiased;
@@ -45,10 +45,12 @@
         border-radius: 5px;
     }
 
-    .item a {
+    /* Nouvelle classe pour les boutons */
+    .btn {
         display: inline-block;
         margin-top: 10px;
         padding: 8px 16px;
+        width: 150px; /* Vous pouvez ajuster cette valeur selon vos besoins */
         background-color: #4CAF50;
         color: white;
         text-decoration: none;
@@ -56,7 +58,7 @@
         transition: background-color 0.3s;
     }
 
-    .item a:hover {
+    .btn:hover {
         background-color: #45a049;
     }
 
@@ -71,8 +73,8 @@
         padding: 10px;
         box-sizing: border-box;
     }
-    </style>
-    <link rel="stylesheet" type="text/css" href="Constant/styles.css">
+</style>
+<link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>
     <head>
@@ -104,15 +106,15 @@
                         echo '<div class="column">';
                         echo '<div class="item">';
                         echo '<h2>' . $row["nameItem"] . '</h2>';
-                        echo '<img src='. $row["link"] . '>';
+                        echo '<img src="'. $row["link"] . '">';
                         echo '<p>owner : '.$row["username"].'</p>';
                         echo '<p>Descriptions : ' . $row["descriptions"] . '</p>';
                         if($row["sellType"]==1){
                             echo '<p class="price">£' . $row["price"] . '</p>';
                             echo '<p>Quantity: ' . $row["quantity"] . '</p>';
-                            echo '<a href="desserts.php?addTocart=' . $row['id'] . '" >Add to cart </a><br><br>';
-                            echo '<a href="payment.php?buy=' . $row['id'] . '" >Buy Now </a><br><br>';
-                            echo '<a href="#" onclick="negotiatePrice('.$row['id'].', '.$row['price'].');">Negotiate the price</a>';
+                            echo '<a class="btn" href="desserts.php?addTocart=' . $row['id'] . '">Add to cart</a><br><br>';
+                            echo '<a class="btn" href="payment.php?buy=' . $row['id'] . '">Buy Now</a><br><br>';
+                            echo '<a class="btn" href="#" onclick="negotiatePrice('.$row['id'].', '.$row['price'].');">Negotiate the price</a>';
                         }else{
                             if ($currentDatetime >= $row["endDate"]) {
                                 // Le timer est expiré, effectuer les actions nécessaires
@@ -154,8 +156,7 @@
                                 }
                             }
 
-                            echo '<a href="javascript:void(0);" onclick="confirmBid('.$row['id'].', '.$row['price'].');">auction now</a> <br>';
-                            // echo '<input type="text" id="bidInput_'.$row["id"].'" name="'.$row["id"].'">';
+                            echo '<a class="btn" href="javascript:void(0);" onclick="confirmBid('.$row['id'].', '.$row['price'].');">auction now</a> <br>';
                         }
                         echo '</div>';
                         echo '</div>';
@@ -403,15 +404,11 @@
         </div>
     </div>
     <footer>
-    <?php 
-    include('Constant/footer.php'); 
-    ?>
-  </footer>
+        <?php 
+        include('Constant/footer.php'); 
+        ?>
+    </footer>
     <script>
-        function openPayment() {
-            window.open("payment.php", "_blank");
-        }
-
         function confirmBid(itemId, startingPrice) {
             var bidValue = prompt("Enter your bid price:");
 
