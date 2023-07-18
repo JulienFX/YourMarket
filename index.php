@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>
     <head>
@@ -13,15 +12,14 @@
           <?php include('Constant/navbar.php'); ?>
       </nav>
       <div class="content">
-
-        <h1>Welcome to YourMarket</h1>
-        <img src="Photos/accueil.avif" alt="">
+        <!-- Add the video element with a loop attribute -->
+        <video id="background-video" autoplay loop muted style="width: 100%; height: 100%;">
+          <source src="Photos/45711041.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   <footer>
-    <?php 
-    include('Constant/footer.php'); 
-    ?>
+    <?php include('Constant/footer.php'); ?>
   </footer>
 </body>
 </html>

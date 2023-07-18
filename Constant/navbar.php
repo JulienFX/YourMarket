@@ -21,7 +21,6 @@
         float: left;
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
     .navbar ul {
@@ -30,7 +29,6 @@
         margin: 0;
         display: flex;
         flex-direction: column;
-        align-items: center;
     }
 
     .navbar li {
@@ -40,10 +38,12 @@
     .navbar a {
         display: flex;
         align-items: center;
+        justify-content: flex-start; /* Align items to the left */
         padding: 10px;
         text-decoration: none;
         color: white;
         transition: background-color 0.3s ease;
+        height: 100%; /* Fill the entire height of the navbar */
     }
 
     .navbar a:hover {
@@ -69,6 +69,7 @@
   <!-- Add Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
   <div class="navbar">
     <ul>

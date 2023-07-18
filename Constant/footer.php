@@ -3,6 +3,27 @@
 
 <head>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main content container */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Footer styles */
         .footer {
             background-color: #333;
             color: #fff;
@@ -29,8 +50,6 @@
             display: block;
             margin-bottom: 10px;
             transition: color 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
         }
 
         .footer-links a:hover {
@@ -46,7 +65,6 @@
         }
 
         .newsletter-title {
-            font-family: 'Poppins', sans-serif;
             font-size: 16px;
             margin-bottom: 10px;
         }
@@ -66,7 +84,6 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-family: 'Poppins', sans-serif;
             font-size: 14px;
         }
 
@@ -80,14 +97,12 @@
         }
 
         .contact-title {
-            font-family: 'Poppins', sans-serif;
             font-size: 16px;
             margin-bottom: 10px;
         }
 
         .contact-address {
             margin-bottom: 10px;
-            font-family: 'Poppins', sans-serif;
             font-size: 14px;
         }
 
