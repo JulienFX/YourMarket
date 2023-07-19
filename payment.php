@@ -200,7 +200,7 @@
                $stmt->bind_param("ii", $newQuantity, $itemId);
                $stmt->execute();
                $stmt->close();
-               header('Location: index.php');
+               header('Location: orders.php');
              }
            }
          } else if ($_SESSION['cartId']) {
