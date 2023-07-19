@@ -2,6 +2,78 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+    .content {
+      text-align : center;
+      /* margin: 20px; */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    label {
+      width: 100%;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    select {
+      width: 100%;
+      height: 40px;
+    }
+
+    #auctionsBlock {
+      display: none;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    input[type="file"] {
+      margin-bottom: 20px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>
@@ -51,7 +123,7 @@
                 
                             $insertHave = "INSERT INTO have (idLink, idItem) VALUES ('$idLink','$lastInsertIdItem')";
                             if($conn->query($insertHave)===TRUE){
-                              echo "Item added successfully!";
+                              
                           }
                         }else{
                           echo "eror";

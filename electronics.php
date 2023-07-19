@@ -175,7 +175,8 @@
                         $itemPrice = $row['price'];
 
                         if ($bidValue <= $itemPrice) {
-                            echo "Le prix renseigné doit être supérieur au prix de l'item";
+                            $message = "Value must be higher than the actual price";
+                            echo "<script type='text/javascript'>alert('$message');</script>";
                         } else {
                             // Vérifier si une ligne existe déjà dans la table bids avec l'ID spécifié
                             $sql = "SELECT * FROM bids WHERE itemId = '$itemId'";
@@ -187,7 +188,8 @@
 
                                 // Vérifier si le prix renseigné est plus grand que le prix actuel
                                 if ($bidValue <= $currentPrice) {
-                                    echo "Le prix renseigné doit être supérieur au prix actuel";
+                                    $message = "Value must be higher than the actual price";
+                            echo "<script type='text/javascript'>alert('$message');</script>";
                                 } else {
                                     // Vérifier si le prix renseigné est supérieur à la valeur initiale de l'attribut price dans la table items
                                     if ($bidValue > $itemPrice) {
@@ -195,7 +197,8 @@
                                         $sql = "UPDATE bids SET price = '$bidValue' WHERE itemId = '$itemId'";
 
                                         if ($conn->query($sql) === TRUE) {
-                                            echo "Mise à jour réussie";
+                                            $message = "Offer valid ! You need to wait until the end of the timer";
+echo "<script type='text/javascript'>alert('$message');</script>";
                                         } else {
                                             echo "Erreur lors de la mise à jour : " . $conn->error;
                                         }
@@ -228,7 +231,8 @@
                                                 $sql = "INSERT INTO place (bidId, username) VALUES ('$bidId', '$username')";
 
                                                 if ($conn->query($sql) === TRUE) {
-                                                    echo "Enchère et emplacement insérés avec succès";
+                                                    $message = "Offer valid ! You need to wait until the end of the timer";
+echo "<script type='text/javascript'>alert('$message');</script>";
                                                 } else {
                                                     echo "Erreur lors de l'insertion dans la table place : " . $conn->error;
                                                 }

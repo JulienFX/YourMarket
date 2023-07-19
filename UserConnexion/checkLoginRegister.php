@@ -50,7 +50,8 @@ function login($username, $password){
                 $_SESSION['role'] = $row['roles'];
                 header('Location: ../index.php');
             } else {
-                echo "Il n'y a pas de résultat.";
+                $message = "Username or password not valid";
+                echo "<script type='text/javascript'>alert('$message');</script>";
             }
             mysqli_free_result($result);
         } else {

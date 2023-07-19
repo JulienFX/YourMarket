@@ -1,4 +1,6 @@
-<?php session_start(); 
+<?php 
+ob_start();
+session_start(); 
 require_once("connexionDB.php");
 global $conn;
 $user = $_SESSION['username'];
