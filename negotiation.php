@@ -34,7 +34,7 @@ session_start(); ?>
             $conn->query($updateOfferQuery);
 
             // Insert the accepted offer into the "order" table
-            $insertOrderQuery = "INSERT INTO `orders` (itemId, quantity, purchaseDate) VALUES ($itemId, $quantity, NOW())";
+            $insertOrderQuery = "INSERT INTO `orders` (itemId, quantity, purchaseDate) VALUES ($itemId, 1, NOW())";
             $conn->query($insertOrderQuery);
 
             // Get the orderId (primary key of the "order" table) of the inserted order
@@ -44,7 +44,8 @@ session_start(); ?>
             $insertHoldQuery = "INSERT INTO hold (orderId, username) VALUES ($orderId, '$proposedBy')";
             $conn->query($insertHoldQuery);
 
-            $decreaseItem = "UPDATE items set quantity=0 where id=$itemId";
+            $newQuantity = $quantity-1;
+            $decreaseItem = "UPDATE items set quantity=$newQuantity where id=$itemId";
             $conn->query($decreaseItem);
 
             // Redirect back to the original page to display the updated information

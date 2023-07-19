@@ -123,7 +123,7 @@
                 
                             $insertHave = "INSERT INTO have (idLink, idItem) VALUES ('$idLink','$lastInsertIdItem')";
                             if($conn->query($insertHave)===TRUE){
-                              echo "Item added successfully!";
+                              
                           }
                         }else{
                           echo "eror";
