@@ -2,11 +2,60 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            flex: 33.33%;
+            padding: 10px;
+        }
+
+        .item {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .item h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .item img {
+            width:250px;
+            height: 250px
+            margin-bottom: 10px;
+        }
+
+        .item p {
+            margin-bottom: 5px;
+        }
+
+        .item a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        .item a:hover {
+            text-decoration: underline;
+        }
+    </style>
   <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
 <body>
     <head>
-        <?php include('Constant/head.php'); ?>
+        <?php 
+        ob_start();
+        include('Constant/head.php'); ?>
     </head>
     <div class="page">
       <nav>
