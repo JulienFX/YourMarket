@@ -17,6 +17,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s, box-shadow 0.3s;
         font-family: "Arial", sans-serif;
+        flex: 1; /* Ensure the .item divs fill the available space */
     }
 
     .item:hover {
@@ -65,14 +66,17 @@
     .row {
         display: flex;
         flex-wrap: wrap;
-        justify-content: flex-start;
+        justify-content: space-between; /* Distribute items evenly along the row */
     }
 
     .column {
-        flex: 0 0 33.33%;
+        flex: 0 0 calc(33.33% - 20px); /* Use calc to set width with margin included */
         padding: 10px;
         box-sizing: border-box;
+        display: flex; /* Add display flex to make children occupy full height */
+        flex-direction: column; /* Stack children vertically */
     }
+
 </style>
 <link rel="stylesheet" type="text/css" href="Constant/styles.css">
 </head>
